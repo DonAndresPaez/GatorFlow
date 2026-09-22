@@ -1,0 +1,24 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# TouchDesigner backups
+touchdesigner/Backup/
+*.[0-9]*.toe
+CrashAutoSave*
+
+# Outputs
+*.png
+!docs/*.png
+
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# tracking outputs
+tracking/world_origin.json
+tracking/camera.json.backup
+marker.png

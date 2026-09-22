@@ -1,0 +1,6 @@
+numpy
+scipy
+opencv-contrib-python
+python-osc
+pillow
+pytest

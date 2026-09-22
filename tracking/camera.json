@@ -1,0 +1,5 @@
+{
+  "_note": "PLACEHOLDER values. Replace with the Kinect color camera's real intrinsics.",
+  "camera_matrix": [[1060.0, 0.0, 960.0], [0.0, 1060.0, 540.0], [0.0, 0.0, 1.0]],
+  "dist_coeffs": [0.0, 0.0, 0.0, 0.0, 0.0]
+}
