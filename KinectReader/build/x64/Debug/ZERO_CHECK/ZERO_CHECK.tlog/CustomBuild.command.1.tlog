@@ -1,0 +1,10 @@
+^C:\USERS\TERRE\SOURCE\KINECTREADER\BUILD\CMAKEFILES\768696ECE876A13595557E6B26BA7D28\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/terre/source/KinectReader -BC:/Users/terre/source/KinectReader/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/terre/source/KinectReader/build/KinectReader.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

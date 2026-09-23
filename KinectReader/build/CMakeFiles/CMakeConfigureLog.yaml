@@ -1,0 +1,2102 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineSystem.cmake:218 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:501 (find_file)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:538 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCXXCompilerId.cpp.in"
+    candidate_directories:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/"
+    found: "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeCXXCompilerId.cpp.in"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\local\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files (x86)\\Intel\\iCLS Client"
+        - "C:\\Program Files\\Intel\\iCLS Client"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0"
+        - "C:\\Windows\\System32\\OpenSSH"
+        - "C:\\Program Files\\Intel\\WiFi\\bin"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\dotnet"
+        - "C:\\Program Files\\nodejs"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Users\\terre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\terre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\terre\\AppData\\Local\\Python\\bin"
+        - "C:\\Users\\terre\\AppData\\Roaming\\npm"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\altera_lite\\25.1std\\questa_fse\\win64"
+        - "C:\\questasim64_2026.2\\win64"
+        - "C:\\Users\\terre\\.dotnet\\tools"
+        - "C:\\opencv\\build\\x64\\vc16\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin\\vendor_perl"
+        - "C:\\Program Files\\Git\\usr\\bin\\core_perl"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.14.60+43b635718 for .NET Framework
+      Build started 9/20/2026 11:46:59 PM.
+      
+      Project "C:\\Users\\terre\\source\\KinectReader\\build\\CMakeFiles\\4.4.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+        Creating directory "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        Touching "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+      ClCompile:
+        C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\Users\\terre\\source\\KinectReader\\build\\CMakeFiles\\4.4.3\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Done Building Project "C:\\Users\\terre\\source\\KinectReader\\build\\CMakeFiles\\4.4.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:01.95
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Users/terre/source/KinectReader/build/CMakeFiles/4.4.3/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:64 (__resolve_tool_path)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:102 (__resolve_linker_path)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "_CMAKE_TOOL_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "link"
+    candidate_directories:
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Users/terre/bin/"
+      - "C:/Program Files/Git/mingw64/bin/"
+      - "C:/Program Files/Git/usr/local/bin/"
+      - "C:/Program Files/Git/usr/bin/"
+      - "C:/Program Files (x86)/Intel/iCLS Client/"
+      - "C:/Program Files/Intel/iCLS Client/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/nodejs/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/terre/AppData/Local/Python/bin/"
+      - "C:/Users/terre/AppData/Roaming/npm/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/altera_lite/25.1std/questa_fse/win64/"
+      - "C:/questasim64_2026.2/win64/"
+      - "C:/Users/terre/.dotnet/tools/"
+      - "C:/opencv/build/x64/vc16/bin/"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/"
+      - "C:/Program Files/Git/usr/bin/core_perl/"
+    searched_directories:
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.com"
+    found: "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\local\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files (x86)\\Intel\\iCLS Client"
+        - "C:\\Program Files\\Intel\\iCLS Client"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0"
+        - "C:\\Windows\\System32\\OpenSSH"
+        - "C:\\Program Files\\Intel\\WiFi\\bin"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\dotnet"
+        - "C:\\Program Files\\nodejs"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Users\\terre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\terre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\terre\\AppData\\Local\\Python\\bin"
+        - "C:\\Users\\terre\\AppData\\Roaming\\npm"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\altera_lite\\25.1std\\questa_fse\\win64"
+        - "C:\\questasim64_2026.2\\win64"
+        - "C:\\Users\\terre\\.dotnet\\tools"
+        - "C:\\opencv\\build\\x64\\vc16\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin\\vendor_perl"
+        - "C:\\Program Files\\Git\\usr\\bin\\core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:64 (__resolve_tool_path)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:103 (__resolve_linker_path)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "_CMAKE_TOOL_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "lld-link"
+    candidate_directories:
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Users/terre/bin/"
+      - "C:/Program Files/Git/mingw64/bin/"
+      - "C:/Program Files/Git/usr/local/bin/"
+      - "C:/Program Files/Git/usr/bin/"
+      - "C:/Program Files (x86)/Intel/iCLS Client/"
+      - "C:/Program Files/Intel/iCLS Client/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/nodejs/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/terre/AppData/Local/Python/bin/"
+      - "C:/Users/terre/AppData/Roaming/npm/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/altera_lite/25.1std/questa_fse/win64/"
+      - "C:/questasim64_2026.2/win64/"
+      - "C:/Users/terre/.dotnet/tools/"
+      - "C:/opencv/build/x64/vc16/bin/"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/"
+      - "C:/Program Files/Git/usr/bin/core_perl/"
+    searched_directories:
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link.com"
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link.exe"
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link"
+      - "C:/Users/terre/bin/lld-link.com"
+      - "C:/Users/terre/bin/lld-link.exe"
+      - "C:/Users/terre/bin/lld-link"
+      - "C:/Program Files/Git/mingw64/bin/lld-link.com"
+      - "C:/Program Files/Git/mingw64/bin/lld-link.exe"
+      - "C:/Program Files/Git/mingw64/bin/lld-link"
+      - "C:/Program Files/Git/usr/local/bin/lld-link.com"
+      - "C:/Program Files/Git/usr/local/bin/lld-link.exe"
+      - "C:/Program Files/Git/usr/local/bin/lld-link"
+      - "C:/Program Files/Git/usr/bin/lld-link.com"
+      - "C:/Program Files/Git/usr/bin/lld-link.exe"
+      - "C:/Program Files/Git/usr/bin/lld-link"
+      - "C:/Program Files (x86)/Intel/iCLS Client/lld-link.com"
+      - "C:/Program Files (x86)/Intel/iCLS Client/lld-link.exe"
+      - "C:/Program Files (x86)/Intel/iCLS Client/lld-link"
+      - "C:/Program Files/Intel/iCLS Client/lld-link.com"
+      - "C:/Program Files/Intel/iCLS Client/lld-link.exe"
+      - "C:/Program Files/Intel/iCLS Client/lld-link"
+      - "C:/Windows/System32/lld-link.com"
+      - "C:/Windows/System32/lld-link.exe"
+      - "C:/Windows/System32/lld-link"
+      - "C:/Windows/lld-link.com"
+      - "C:/Windows/lld-link.exe"
+      - "C:/Windows/lld-link"
+      - "C:/Windows/System32/wbem/lld-link.com"
+      - "C:/Windows/System32/wbem/lld-link.exe"
+      - "C:/Windows/System32/wbem/lld-link"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link"
+      - "C:/Windows/System32/OpenSSH/lld-link.com"
+      - "C:/Windows/System32/OpenSSH/lld-link.exe"
+      - "C:/Windows/System32/OpenSSH/lld-link"
+      - "C:/Program Files/Intel/WiFi/bin/lld-link.com"
+      - "C:/Program Files/Intel/WiFi/bin/lld-link.exe"
+      - "C:/Program Files/Intel/WiFi/bin/lld-link"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/lld-link.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/lld-link.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/lld-link"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lld-link.com"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lld-link.exe"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lld-link"
+      - "C:/Program Files/dotnet/lld-link.com"
+      - "C:/Program Files/dotnet/lld-link.exe"
+      - "C:/Program Files/dotnet/lld-link"
+      - "C:/Program Files/nodejs/lld-link.com"
+      - "C:/Program Files/nodejs/lld-link.exe"
+      - "C:/Program Files/nodejs/lld-link"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/lld-link.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/lld-link.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/lld-link"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/lld-link.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/lld-link.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/lld-link"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/lld-link.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/lld-link.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/lld-link"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/lld-link.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/lld-link.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/lld-link"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link"
+      - "C:/Program Files/Docker/Docker/resources/bin/lld-link.com"
+      - "C:/Program Files/Docker/Docker/resources/bin/lld-link.exe"
+      - "C:/Program Files/Docker/Docker/resources/bin/lld-link"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/lld-link.com"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/lld-link.exe"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/lld-link"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/lld-link.com"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/lld-link.exe"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/lld-link"
+      - "C:/Program Files/CMake/bin/lld-link.com"
+      - "C:/Program Files/CMake/bin/lld-link.exe"
+      - "C:/Program Files/CMake/bin/lld-link"
+      - "C:/Program Files/Git/cmd/lld-link.com"
+      - "C:/Program Files/Git/cmd/lld-link.exe"
+      - "C:/Program Files/Git/cmd/lld-link"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/lld-link.com"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/lld-link.exe"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/lld-link"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/lld-link.com"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/lld-link.exe"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/lld-link"
+      - "C:/Users/terre/AppData/Local/Python/bin/lld-link.com"
+      - "C:/Users/terre/AppData/Local/Python/bin/lld-link.exe"
+      - "C:/Users/terre/AppData/Local/Python/bin/lld-link"
+      - "C:/Users/terre/AppData/Roaming/npm/lld-link.com"
+      - "C:/Users/terre/AppData/Roaming/npm/lld-link.exe"
+      - "C:/Users/terre/AppData/Roaming/npm/lld-link"
+      - "C:/msys64/ucrt64/bin/lld-link.com"
+      - "C:/msys64/ucrt64/bin/lld-link.exe"
+      - "C:/msys64/ucrt64/bin/lld-link"
+      - "C:/altera_lite/25.1std/questa_fse/win64/lld-link.com"
+      - "C:/altera_lite/25.1std/questa_fse/win64/lld-link.exe"
+      - "C:/altera_lite/25.1std/questa_fse/win64/lld-link"
+      - "C:/questasim64_2026.2/win64/lld-link.com"
+      - "C:/questasim64_2026.2/win64/lld-link.exe"
+      - "C:/questasim64_2026.2/win64/lld-link"
+      - "C:/Users/terre/.dotnet/tools/lld-link.com"
+      - "C:/Users/terre/.dotnet/tools/lld-link.exe"
+      - "C:/Users/terre/.dotnet/tools/lld-link"
+      - "C:/opencv/build/x64/vc16/bin/lld-link.com"
+      - "C:/opencv/build/x64/vc16/bin/lld-link.exe"
+      - "C:/opencv/build/x64/vc16/bin/lld-link"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/lld-link.com"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/lld-link.exe"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/lld-link"
+      - "C:/Program Files/Git/usr/bin/core_perl/lld-link.com"
+      - "C:/Program Files/Git/usr/bin/core_perl/lld-link.exe"
+      - "C:/Program Files/Git/usr/bin/core_perl/lld-link"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\local\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files (x86)\\Intel\\iCLS Client"
+        - "C:\\Program Files\\Intel\\iCLS Client"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0"
+        - "C:\\Windows\\System32\\OpenSSH"
+        - "C:\\Program Files\\Intel\\WiFi\\bin"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\dotnet"
+        - "C:\\Program Files\\nodejs"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Users\\terre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\terre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\terre\\AppData\\Local\\Python\\bin"
+        - "C:\\Users\\terre\\AppData\\Roaming\\npm"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\altera_lite\\25.1std\\questa_fse\\win64"
+        - "C:\\questasim64_2026.2\\win64"
+        - "C:\\Users\\terre\\.dotnet\\tools"
+        - "C:\\opencv\\build\\x64\\vc16\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin\\vendor_perl"
+        - "C:\\Program Files\\Git\\usr\\bin\\core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "link"
+    candidate_directories:
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Users/terre/bin/"
+      - "C:/Program Files/Git/mingw64/bin/"
+      - "C:/Program Files/Git/usr/local/bin/"
+      - "C:/Program Files/Git/usr/bin/"
+      - "C:/Program Files (x86)/Intel/iCLS Client/"
+      - "C:/Program Files/Intel/iCLS Client/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/nodejs/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/terre/AppData/Local/Python/bin/"
+      - "C:/Users/terre/AppData/Roaming/npm/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/altera_lite/25.1std/questa_fse/win64/"
+      - "C:/questasim64_2026.2/win64/"
+      - "C:/Users/terre/.dotnet/tools/"
+      - "C:/opencv/build/x64/vc16/bin/"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/"
+      - "C:/Program Files/Git/usr/bin/core_perl/"
+    searched_directories:
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.com"
+    found: "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\local\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files (x86)\\Intel\\iCLS Client"
+        - "C:\\Program Files\\Intel\\iCLS Client"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0"
+        - "C:\\Windows\\System32\\OpenSSH"
+        - "C:\\Program Files\\Intel\\WiFi\\bin"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\dotnet"
+        - "C:\\Program Files\\nodejs"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Users\\terre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\terre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\terre\\AppData\\Local\\Python\\bin"
+        - "C:\\Users\\terre\\AppData\\Roaming\\npm"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\altera_lite\\25.1std\\questa_fse\\win64"
+        - "C:\\questasim64_2026.2\\win64"
+        - "C:\\Users\\terre\\.dotnet\\tools"
+        - "C:\\opencv\\build\\x64\\vc16\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin\\vendor_perl"
+        - "C:\\Program Files\\Git\\usr\\bin\\core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_MT"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "mt"
+    candidate_directories:
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Users/terre/bin/"
+      - "C:/Program Files/Git/mingw64/bin/"
+      - "C:/Program Files/Git/usr/local/bin/"
+      - "C:/Program Files/Git/usr/bin/"
+      - "C:/Program Files (x86)/Intel/iCLS Client/"
+      - "C:/Program Files/Intel/iCLS Client/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/nodejs/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/terre/AppData/Local/Python/bin/"
+      - "C:/Users/terre/AppData/Roaming/npm/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/altera_lite/25.1std/questa_fse/win64/"
+      - "C:/questasim64_2026.2/win64/"
+      - "C:/Users/terre/.dotnet/tools/"
+      - "C:/opencv/build/x64/vc16/bin/"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/"
+      - "C:/Program Files/Git/usr/bin/core_perl/"
+    searched_directories:
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mt.com"
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mt.exe"
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mt"
+      - "C:/Users/terre/bin/mt.com"
+      - "C:/Users/terre/bin/mt.exe"
+      - "C:/Users/terre/bin/mt"
+      - "C:/Program Files/Git/mingw64/bin/mt.com"
+      - "C:/Program Files/Git/mingw64/bin/mt.exe"
+      - "C:/Program Files/Git/mingw64/bin/mt"
+      - "C:/Program Files/Git/usr/local/bin/mt.com"
+      - "C:/Program Files/Git/usr/local/bin/mt.exe"
+      - "C:/Program Files/Git/usr/local/bin/mt"
+      - "C:/Program Files/Git/usr/bin/mt.com"
+      - "C:/Program Files/Git/usr/bin/mt.exe"
+      - "C:/Program Files/Git/usr/bin/mt"
+      - "C:/Program Files (x86)/Intel/iCLS Client/mt.com"
+      - "C:/Program Files (x86)/Intel/iCLS Client/mt.exe"
+      - "C:/Program Files (x86)/Intel/iCLS Client/mt"
+      - "C:/Program Files/Intel/iCLS Client/mt.com"
+      - "C:/Program Files/Intel/iCLS Client/mt.exe"
+      - "C:/Program Files/Intel/iCLS Client/mt"
+      - "C:/Windows/System32/mt.com"
+      - "C:/Windows/System32/mt.exe"
+      - "C:/Windows/System32/mt"
+      - "C:/Windows/mt.com"
+      - "C:/Windows/mt.exe"
+      - "C:/Windows/mt"
+      - "C:/Windows/System32/wbem/mt.com"
+      - "C:/Windows/System32/wbem/mt.exe"
+      - "C:/Windows/System32/wbem/mt"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/mt.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/mt.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/mt"
+      - "C:/Windows/System32/OpenSSH/mt.com"
+      - "C:/Windows/System32/OpenSSH/mt.exe"
+      - "C:/Windows/System32/OpenSSH/mt"
+      - "C:/Program Files/Intel/WiFi/bin/mt.com"
+      - "C:/Program Files/Intel/WiFi/bin/mt.exe"
+      - "C:/Program Files/Intel/WiFi/bin/mt"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/mt.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/mt.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/mt"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/mt.com"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/mt.exe"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/mt"
+      - "C:/Program Files/dotnet/mt.com"
+      - "C:/Program Files/dotnet/mt.exe"
+      - "C:/Program Files/dotnet/mt"
+      - "C:/Program Files/nodejs/mt.com"
+      - "C:/Program Files/nodejs/mt.exe"
+      - "C:/Program Files/nodejs/mt"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/mt.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/mt.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/mt"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/mt.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/mt.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/mt"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/mt.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/mt.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/mt"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/mt.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/mt.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/mt"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt"
+      - "C:/Program Files/Docker/Docker/resources/bin/mt.com"
+      - "C:/Program Files/Docker/Docker/resources/bin/mt.exe"
+      - "C:/Program Files/Docker/Docker/resources/bin/mt"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/mt.com"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/mt.exe"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/mt"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/mt.com"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/mt.exe"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/mt"
+      - "C:/Program Files/CMake/bin/mt.com"
+      - "C:/Program Files/CMake/bin/mt.exe"
+      - "C:/Program Files/CMake/bin/mt"
+      - "C:/Program Files/Git/cmd/mt.com"
+      - "C:/Program Files/Git/cmd/mt.exe"
+      - "C:/Program Files/Git/cmd/mt"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/mt.com"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/mt.exe"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/mt"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/mt.com"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/mt.exe"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/mt"
+      - "C:/Users/terre/AppData/Local/Python/bin/mt.com"
+      - "C:/Users/terre/AppData/Local/Python/bin/mt.exe"
+      - "C:/Users/terre/AppData/Local/Python/bin/mt"
+      - "C:/Users/terre/AppData/Roaming/npm/mt.com"
+      - "C:/Users/terre/AppData/Roaming/npm/mt.exe"
+      - "C:/Users/terre/AppData/Roaming/npm/mt"
+      - "C:/msys64/ucrt64/bin/mt.com"
+      - "C:/msys64/ucrt64/bin/mt.exe"
+      - "C:/msys64/ucrt64/bin/mt"
+      - "C:/altera_lite/25.1std/questa_fse/win64/mt.com"
+      - "C:/altera_lite/25.1std/questa_fse/win64/mt.exe"
+      - "C:/altera_lite/25.1std/questa_fse/win64/mt"
+      - "C:/questasim64_2026.2/win64/mt.com"
+      - "C:/questasim64_2026.2/win64/mt.exe"
+      - "C:/questasim64_2026.2/win64/mt"
+      - "C:/Users/terre/.dotnet/tools/mt.com"
+      - "C:/Users/terre/.dotnet/tools/mt.exe"
+      - "C:/Users/terre/.dotnet/tools/mt"
+      - "C:/opencv/build/x64/vc16/bin/mt.com"
+      - "C:/opencv/build/x64/vc16/bin/mt.exe"
+      - "C:/opencv/build/x64/vc16/bin/mt"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/mt.com"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/mt.exe"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/mt"
+      - "C:/Program Files/Git/usr/bin/core_perl/mt.com"
+      - "C:/Program Files/Git/usr/bin/core_perl/mt.exe"
+      - "C:/Program Files/Git/usr/bin/core_perl/mt"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\local\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files (x86)\\Intel\\iCLS Client"
+        - "C:\\Program Files\\Intel\\iCLS Client"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0"
+        - "C:\\Windows\\System32\\OpenSSH"
+        - "C:\\Program Files\\Intel\\WiFi\\bin"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\dotnet"
+        - "C:\\Program Files\\nodejs"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Users\\terre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\terre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\terre\\AppData\\Local\\Python\\bin"
+        - "C:\\Users\\terre\\AppData\\Roaming\\npm"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\altera_lite\\25.1std\\questa_fse\\win64"
+        - "C:\\questasim64_2026.2\\win64"
+        - "C:\\Users\\terre\\.dotnet\\tools"
+        - "C:\\opencv\\build\\x64\\vc16\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin\\vendor_perl"
+        - "C:\\Program Files\\Git\\usr\\bin\\core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "lib"
+    candidate_directories:
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Users/terre/bin/"
+      - "C:/Program Files/Git/mingw64/bin/"
+      - "C:/Program Files/Git/usr/local/bin/"
+      - "C:/Program Files/Git/usr/bin/"
+      - "C:/Program Files (x86)/Intel/iCLS Client/"
+      - "C:/Program Files/Intel/iCLS Client/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/nodejs/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/terre/AppData/Local/Python/bin/"
+      - "C:/Users/terre/AppData/Roaming/npm/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/altera_lite/25.1std/questa_fse/win64/"
+      - "C:/questasim64_2026.2/win64/"
+      - "C:/Users/terre/.dotnet/tools/"
+      - "C:/opencv/build/x64/vc16/bin/"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/"
+      - "C:/Program Files/Git/usr/bin/core_perl/"
+    searched_directories:
+      - "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lib.com"
+    found: "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lib.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\local\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files (x86)\\Intel\\iCLS Client"
+        - "C:\\Program Files\\Intel\\iCLS Client"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0"
+        - "C:\\Windows\\System32\\OpenSSH"
+        - "C:\\Program Files\\Intel\\WiFi\\bin"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\dotnet"
+        - "C:\\Program Files\\nodejs"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Users\\terre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\terre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\terre\\AppData\\Local\\Python\\bin"
+        - "C:\\Users\\terre\\AppData\\Roaming\\npm"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\altera_lite\\25.1std\\questa_fse\\win64"
+        - "C:\\questasim64_2026.2\\win64"
+        - "C:\\Users\\terre\\.dotnet\\tools"
+        - "C:\\opencv\\build\\x64\\vc16\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin\\vendor_perl"
+        - "C:\\Program Files\\Git\\usr\\bin\\core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineRCCompiler.cmake:40 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/Platform/Windows-MSVC.cmake:592 (enable_language)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/Platform/Windows-MSVC.cmake:565 (__windows_compiler_msvc_enable_rc)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/Platform/Windows-MSVC-CXX.cmake:6 (__windows_compiler_msvc)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeCXXInformation.cmake:48 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_RC_COMPILER"
+    description: "RC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "rc"
+    candidate_directories:
+      - "C:/Users/terre/bin/"
+      - "C:/Program Files/Git/mingw64/bin/"
+      - "C:/Program Files/Git/usr/local/bin/"
+      - "C:/Program Files/Git/usr/bin/"
+      - "C:/Program Files (x86)/Intel/iCLS Client/"
+      - "C:/Program Files/Intel/iCLS Client/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/nodejs/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/terre/AppData/Local/Python/bin/"
+      - "C:/Users/terre/AppData/Roaming/npm/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/altera_lite/25.1std/questa_fse/win64/"
+      - "C:/questasim64_2026.2/win64/"
+      - "C:/Users/terre/.dotnet/tools/"
+      - "C:/opencv/build/x64/vc16/bin/"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/"
+      - "C:/Program Files/Git/usr/bin/core_perl/"
+      - "C:/Program Files/bin/"
+      - "C:/Program Files/sbin/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/bin/"
+      - "C:/Program Files (x86)/sbin/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/CMake/sbin/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/KinectReader/bin/"
+      - "C:/Program Files/KinectReader/sbin/"
+      - "C:/Program Files/KinectReader/"
+    searched_directories:
+      - "C:/Users/terre/bin/rc.com"
+      - "C:/Users/terre/bin/rc.exe"
+      - "C:/Users/terre/bin/rc"
+      - "C:/Program Files/Git/mingw64/bin/rc.com"
+      - "C:/Program Files/Git/mingw64/bin/rc.exe"
+      - "C:/Program Files/Git/mingw64/bin/rc"
+      - "C:/Program Files/Git/usr/local/bin/rc.com"
+      - "C:/Program Files/Git/usr/local/bin/rc.exe"
+      - "C:/Program Files/Git/usr/local/bin/rc"
+      - "C:/Program Files/Git/usr/bin/rc.com"
+      - "C:/Program Files/Git/usr/bin/rc.exe"
+      - "C:/Program Files/Git/usr/bin/rc"
+      - "C:/Program Files (x86)/Intel/iCLS Client/rc.com"
+      - "C:/Program Files (x86)/Intel/iCLS Client/rc.exe"
+      - "C:/Program Files (x86)/Intel/iCLS Client/rc"
+      - "C:/Program Files/Intel/iCLS Client/rc.com"
+      - "C:/Program Files/Intel/iCLS Client/rc.exe"
+      - "C:/Program Files/Intel/iCLS Client/rc"
+      - "C:/Windows/System32/rc.com"
+      - "C:/Windows/System32/rc.exe"
+      - "C:/Windows/System32/rc"
+      - "C:/Windows/rc.com"
+      - "C:/Windows/rc.exe"
+      - "C:/Windows/rc"
+      - "C:/Windows/System32/wbem/rc.com"
+      - "C:/Windows/System32/wbem/rc.exe"
+      - "C:/Windows/System32/wbem/rc"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/rc.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/rc.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/rc"
+      - "C:/Windows/System32/OpenSSH/rc.com"
+      - "C:/Windows/System32/OpenSSH/rc.exe"
+      - "C:/Windows/System32/OpenSSH/rc"
+      - "C:/Program Files/Intel/WiFi/bin/rc.com"
+      - "C:/Program Files/Intel/WiFi/bin/rc.exe"
+      - "C:/Program Files/Intel/WiFi/bin/rc"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/rc.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/rc.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/rc"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/rc.com"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/rc.exe"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/rc"
+      - "C:/Program Files/dotnet/rc.com"
+      - "C:/Program Files/dotnet/rc.exe"
+      - "C:/Program Files/dotnet/rc"
+      - "C:/Program Files/nodejs/rc.com"
+      - "C:/Program Files/nodejs/rc.exe"
+      - "C:/Program Files/nodejs/rc"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/rc.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/rc.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/rc"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/rc.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/rc.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/rc"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/rc.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/rc.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/rc"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/rc.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/rc.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/rc"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc"
+      - "C:/Program Files/Docker/Docker/resources/bin/rc.com"
+      - "C:/Program Files/Docker/Docker/resources/bin/rc.exe"
+      - "C:/Program Files/Docker/Docker/resources/bin/rc"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/rc.com"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/rc.exe"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/rc"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/rc.com"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/rc.exe"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/rc"
+      - "C:/Program Files/CMake/bin/rc.com"
+      - "C:/Program Files/CMake/bin/rc.exe"
+      - "C:/Program Files/CMake/bin/rc"
+      - "C:/Program Files/Git/cmd/rc.com"
+      - "C:/Program Files/Git/cmd/rc.exe"
+      - "C:/Program Files/Git/cmd/rc"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/rc.com"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/rc.exe"
+      - "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/rc"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/rc.com"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/rc.exe"
+      - "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/bin/rc"
+      - "C:/Users/terre/AppData/Local/Python/bin/rc.com"
+      - "C:/Users/terre/AppData/Local/Python/bin/rc.exe"
+      - "C:/Users/terre/AppData/Local/Python/bin/rc"
+      - "C:/Users/terre/AppData/Roaming/npm/rc.com"
+      - "C:/Users/terre/AppData/Roaming/npm/rc.exe"
+      - "C:/Users/terre/AppData/Roaming/npm/rc"
+      - "C:/msys64/ucrt64/bin/rc.com"
+      - "C:/msys64/ucrt64/bin/rc.exe"
+      - "C:/msys64/ucrt64/bin/rc"
+      - "C:/altera_lite/25.1std/questa_fse/win64/rc.com"
+      - "C:/altera_lite/25.1std/questa_fse/win64/rc.exe"
+      - "C:/altera_lite/25.1std/questa_fse/win64/rc"
+      - "C:/questasim64_2026.2/win64/rc.com"
+      - "C:/questasim64_2026.2/win64/rc.exe"
+      - "C:/questasim64_2026.2/win64/rc"
+      - "C:/Users/terre/.dotnet/tools/rc.com"
+      - "C:/Users/terre/.dotnet/tools/rc.exe"
+      - "C:/Users/terre/.dotnet/tools/rc"
+      - "C:/opencv/build/x64/vc16/bin/rc.com"
+      - "C:/opencv/build/x64/vc16/bin/rc.exe"
+      - "C:/opencv/build/x64/vc16/bin/rc"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/rc.com"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/rc.exe"
+      - "C:/Program Files/Git/usr/bin/vendor_perl/rc"
+      - "C:/Program Files/Git/usr/bin/core_perl/rc.com"
+      - "C:/Program Files/Git/usr/bin/core_perl/rc.exe"
+      - "C:/Program Files/Git/usr/bin/core_perl/rc"
+      - "C:/Program Files/bin/rc.com"
+      - "C:/Program Files/bin/rc.exe"
+      - "C:/Program Files/bin/rc"
+      - "C:/Program Files/sbin/rc.com"
+      - "C:/Program Files/sbin/rc.exe"
+      - "C:/Program Files/sbin/rc"
+      - "C:/Program Files/rc.com"
+      - "C:/Program Files/rc.exe"
+      - "C:/Program Files/rc"
+      - "C:/Program Files (x86)/bin/rc.com"
+      - "C:/Program Files (x86)/bin/rc.exe"
+      - "C:/Program Files (x86)/bin/rc"
+      - "C:/Program Files (x86)/sbin/rc.com"
+      - "C:/Program Files (x86)/sbin/rc.exe"
+      - "C:/Program Files (x86)/sbin/rc"
+      - "C:/Program Files (x86)/rc.com"
+      - "C:/Program Files (x86)/rc.exe"
+      - "C:/Program Files (x86)/rc"
+      - "C:/Program Files/CMake/bin/rc.com"
+      - "C:/Program Files/CMake/bin/rc.exe"
+      - "C:/Program Files/CMake/bin/rc"
+      - "C:/Program Files/CMake/sbin/rc.com"
+      - "C:/Program Files/CMake/sbin/rc.exe"
+      - "C:/Program Files/CMake/sbin/rc"
+      - "C:/Program Files/CMake/rc.com"
+      - "C:/Program Files/CMake/rc.exe"
+      - "C:/Program Files/CMake/rc"
+      - "C:/Program Files/KinectReader/bin/rc.com"
+      - "C:/Program Files/KinectReader/bin/rc.exe"
+      - "C:/Program Files/KinectReader/bin/rc"
+      - "C:/Program Files/KinectReader/sbin/rc.com"
+      - "C:/Program Files/KinectReader/sbin/rc.exe"
+      - "C:/Program Files/KinectReader/sbin/rc"
+      - "C:/Program Files/KinectReader/rc.com"
+      - "C:/Program Files/KinectReader/rc.exe"
+      - "C:/Program Files/KinectReader/rc"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\local\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Program Files\\Git\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin"
+        - "C:\\Users\\terre\\bin"
+        - "C:\\Program Files (x86)\\Intel\\iCLS Client"
+        - "C:\\Program Files\\Intel\\iCLS Client"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0"
+        - "C:\\Windows\\System32\\OpenSSH"
+        - "C:\\Program Files\\Intel\\WiFi\\bin"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\dotnet"
+        - "C:\\Program Files\\nodejs"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Users\\terre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\terre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\terre\\AppData\\Local\\Python\\bin"
+        - "C:\\Users\\terre\\AppData\\Roaming\\npm"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\altera_lite\\25.1std\\questa_fse\\win64"
+        - "C:\\questasim64_2026.2\\win64"
+        - "C:\\Users\\terre\\.dotnet\\tools"
+        - "C:\\opencv\\build\\x64\\vc16\\bin"
+        - "C:\\Program Files\\Git\\usr\\bin\\vendor_perl"
+        - "C:\\Program Files\\Git\\usr\\bin\\core_perl"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/KinectReader"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/KinectReader"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompilerABI.cmake:123 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/terre/source/KinectReader/build/CMakeFiles/CMakeScratch/TryCompile-zk4610"
+      binary: "C:/Users/terre/source/KinectReader/build/CMakeFiles/CMakeScratch/TryCompile-zk4610"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_CXX_STDLIB_MODULES_JSON: ""
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: false
+      stdout: |
+        Change Dir: 'C:/Users/terre/source/KinectReader/build/CMakeFiles/CMakeScratch/TryCompile-zk4610'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_df4b1.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.60+43b635718 for .NET Framework
+        Build started 9/20/2026 11:47:02 PM.
+        
+        Project "C:\\Users\\terre\\source\\KinectReader\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zk4610\\cmTC_df4b1.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\Users\\terre\\source\\KinectReader\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zk4610\\Debug\\".
+          Creating directory "cmTC_df4b1.dir\\Debug\\cmTC_df4b1.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_df4b1.dir\\Debug\\cmTC_df4b1.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_df4b1.dir\\Debug\\cmTC_df4b1.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_df4b1.dir\\Debug\\\\" /Fd"cmTC_df4b1.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.4\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35229 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_df4b1.dir\\Debug\\\\" /Fd"cmTC_df4b1.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.4\\Modules\\CMakeCXXCompilerABI.cpp"
+          CMakeCXXCompilerABI.cpp
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\terre\\source\\KinectReader\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zk4610\\Debug\\cmTC_df4b1.exe" /INCREMENTAL /ILK:"cmTC_df4b1.dir\\Debug\\cmTC_df4b1.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/terre/source/KinectReader/build/CMakeFiles/CMakeScratch/TryCompile-zk4610/Debug/cmTC_df4b1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/terre/source/KinectReader/build/CMakeFiles/CMakeScratch/TryCompile-zk4610/Debug/cmTC_df4b1.lib" /MACHINE:X64  /machine:x64 cmTC_df4b1.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_df4b1.vcxproj -> C:\\Users\\terre\\source\\KinectReader\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zk4610\\Debug\\cmTC_df4b1.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_df4b1.dir\\Debug\\cmTC_df4b1.tlog\\unsuccessfulbuild".
+          Touching "cmTC_df4b1.dir\\Debug\\cmTC_df4b1.tlog\\cmTC_df4b1.lastbuildstate".
+        Done Building Project "C:\\Users\\terre\\source\\KinectReader\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zk4610\\cmTC_df4b1.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:01.04
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompilerABI.cmake:291 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        link line: [  C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\terre\\source\\KinectReader\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zk4610\\Debug\\cmTC_df4b1.exe" /INCREMENTAL /ILK:"cmTC_df4b1.dir\\Debug\\cmTC_df4b1.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/terre/source/KinectReader/build/CMakeFiles/CMakeScratch/TryCompile-zk4610/Debug/cmTC_df4b1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/terre/source/KinectReader/build/CMakeFiles/CMakeScratch/TryCompile-zk4610/Debug/cmTC_df4b1.lib" /MACHINE:X64  /machine:x64 cmTC_df4b1.dir\\Debug\\CMakeCXXCompilerABI.obj] ==> linker [C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe]
+        linker tool for 'CXX': C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64/link.exe 
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/Internal/CMakeDetermineLinkerId.cmake:41 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompilerABI.cmake:337 (cmake_determine_linker_id)"
+      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Running the CXX compiler's linker: "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.44.35229.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+...
+
+---
+events:
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "CMakeLists.txt:14 (find_package)"
+    name: "OpenCV"
+    configs:
+      -
+        filename: "OpenCV.cps"
+        kind: "cps"
+      -
+        filename: "opencv.cps"
+        kind: "cps"
+      -
+        filename: "OpenCVConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "opencv-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "required_explicit"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "OpenCV"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "C:/Users/terre/source/KinectReader/build/CMakeFiles/pkgRedirects/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/source/KinectReader/build/CMakeFiles/pkgRedirects/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/source/KinectReader/build/CMakeFiles/pkgRedirects/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/source/KinectReader/build/CMakeFiles/pkgRedirects/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/source/KinectReader/build/CMakeFiles/pkgRedirects/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/source/KinectReader/build/CMakeFiles/pkgRedirects/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/iCLS Client/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/iCLS Client/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/iCLS Client/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/iCLS Client/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/iCLS Client/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/iCLS Client/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/iCLS Client/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/iCLS Client/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/iCLS Client/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/iCLS Client/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/iCLS Client/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/iCLS Client/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/wbem/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/wbem/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/wbem/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/wbem/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/wbem/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/wbem/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/WindowsPowerShell/v1.0/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/WindowsPowerShell/v1.0/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/WindowsPowerShell/v1.0/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/WindowsPowerShell/v1.0/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/WindowsPowerShell/v1.0/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/WindowsPowerShell/v1.0/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenSSH/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenSSH/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenSSH/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenSSH/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenSSH/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenSSH/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/WiFi/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/WiFi/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/WiFi/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/WiFi/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/WiFi/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/WiFi/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Common Files/Intel/WirelessCommon/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Common Files/Intel/WirelessCommon/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Common Files/Intel/WirelessCommon/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Common Files/Intel/WirelessCommon/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Common Files/Intel/WirelessCommon/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Common Files/Intel/WirelessCommon/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/dotnet/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/dotnet/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/dotnet/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/dotnet/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/dotnet/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/dotnet/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/nodejs/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/nodejs/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/nodejs/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/nodejs/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/nodejs/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/nodejs/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Intel/Intel(R) Management Engine Components/IPT/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Docker/Docker/resources/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Docker/Docker/resources/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Docker/Docker/resources/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Docker/Docker/resources/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Docker/Docker/resources/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Docker/Docker/resources/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Git/cmd/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Git/cmd/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Git/cmd/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Git/cmd/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Git/cmd/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Git/cmd/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Microsoft/WindowsApps/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Programs/Microsoft VS Code/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Python/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Python/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Python/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Python/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Python/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Users/terre/AppData/Local/Python/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/msys64/ucrt64/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/msys64/ucrt64/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/msys64/ucrt64/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/msys64/ucrt64/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/msys64/ucrt64/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/msys64/ucrt64/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/altera_lite/25.1std/questa_fse/win64/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/altera_lite/25.1std/questa_fse/win64/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/altera_lite/25.1std/questa_fse/win64/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/altera_lite/25.1std/questa_fse/win64/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/altera_lite/25.1std/questa_fse/win64/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/altera_lite/25.1std/questa_fse/win64/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/questasim64_2026.2/win64/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/questasim64_2026.2/win64/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/questasim64_2026.2/win64/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/questasim64_2026.2/win64/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/questasim64_2026.2/win64/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/questasim64_2026.2/win64/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/opencv/build/x64/vc16/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/opencv/build/x64/vc16/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/opencv/build/x64/vc16/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/opencv/build/x64/vc16/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/opencv/build/x64/vc16/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/opencv/build/x64/vc16/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/OpenCVConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/opencv-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/lib/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/lib/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/share/cps/OpenCV.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/share/cps/opencv.cps"
+        mode: "cps"
+        reason: "no_exist"
+    found: null
+    search_context:
+      ENV{PATH}:
+        - "C:\\Program Files (x86)\\Intel\\iCLS Client\\"
+        - "C:\\Program Files\\Intel\\iCLS Client\\"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\nodejs\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Users\\terre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Users\\terre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\terre\\AppData\\Local\\Python\\bin"
+        - "C:\\Users\\terre\\AppData\\Roaming\\npm"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\altera_lite\\25.1std\\questa_fse\\win64"
+        - "C:\\questasim64_2026.2\\win64"
+        - "C:\\Users\\terre\\.dotnet\\tools"
+        - "C:\\opencv\\build\\x64\\vc16\\bin"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/KinectReader"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/KinectReader"
+...
