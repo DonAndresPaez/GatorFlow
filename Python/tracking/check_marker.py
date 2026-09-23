@@ -1,20 +1,24 @@
-"""Work out why the marker isn't being detected.
+'''check_marker.py: this works out why the marker is not being detected.
 
-    python -m tracking.check_marker
+Run: python -m tracking.check_marker
+Makes: check_frame.png and check_frame_annotated.png
 
-Grabs a frame, saves it as check_frame.png (plus check_frame_annotated.png),
-and reports: how bright it is, how sharp it is, how many square shapes the
-detector considered, and what it found in every ArUco dictionary - not just
-ours - in case the printout uses a different one.
+Grabs one frame and reports how bright it is, how sharp it is, how many square
+shapes the detector considered, and what it decodes in every ArUco dictionary,
+not just ours. The saved images are worth looking at, or sending to someone.
 
-Send check_frame.png over if the numbers don't make it obvious.
-"""
+This is what found the Kinect mirroring: a mirrored DICT_4X4_50 id 0 decodes
+as DICT_4X4_1000 id 871, so a decode in the wrong dictionary means the image
+is flipped, not that the marker is wrong.
+
+Mostly used for debugging, but it is also a good check that the camera is working at all.
+'''
 
 import cv2
 import numpy as np
 
 from tracking.camera import open_camera
-from tracking.track import ARUCO_DICT, MARKER_ID
+from tracking.marker import ARUCO_DICT, MARKER_ID
 
 WARMUP_FRAMES = 15  # let auto-exposure settle
 

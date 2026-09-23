@@ -1,7 +1,12 @@
-"""Settings shared by every part of GatorFlow.
+'''config.py - the settings the two languages have to agree on.
 
-If you change something here, update docs/osc_interface.md too.
-"""
+Imported by: monitor.py, fake_tracker.py, marker.py
+Mirrored in: KinectReader/src/main.cpp (OutputConfiguration namespace)
+
+Ports, the OSC address, and the rotation order. If something here changes,
+change it in main.cpp and in docs/osc_interface.md too, or the tracker and
+TouchDesigner stop agreeing on what a message means.
+'''
 
 # ---- Tracking -> TouchDesigner (OSC over UDP) ----
 OSC_HOST = "127.0.0.1"

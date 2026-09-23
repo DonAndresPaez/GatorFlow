@@ -20,7 +20,7 @@ Kinect ──► KinectReader (C++) ──OSC /car/transform──► TouchDesig
 | Folder | What | Owner |
 |---|---|---|
 | `KinectReader/` | The tracker that runs during a session: Kinect SDK → ArUco → pose → OSC | Jules |
-| `Python/` | Calibration and setup tooling, plus a webcam tracker for testing without the Kinect | Andres |
+| `Python/` | Calibration and setup tooling, plus test helpers that need no Kinect | Andres |
 | `shared/` | `calibration.yml` and `world_origin.yml`, written by Python and read by C++ |  |
 | `docs/` | The message format, the lab procedure, the lab log |  |
 | `models/` | `PMB-1A.stl`, the printed practice piece (300 × 300 mm, 58 mm tall, Z up) |  |
@@ -53,6 +53,10 @@ cd Python
 python -m tracking.monitor          # prints poses arriving on 9001
 ```
 
+The live tracking loop lives only in `KinectReader`. Python keeps the marker
+description and the origin transform in `tracking/marker.py`, because
+`set_origin` needs the same math to produce the matrix the C++ reads.
+
 ## Building KinectReader
 
 Needs the Kinect for Windows SDK 2.0 (sets `KINECTSDK20_DIR`), OpenCV with contrib (the path is set in `CMakeLists.txt`), and Visual Studio 2022.
@@ -72,8 +76,6 @@ cmake --build build --config Debug
 | `python -m tracking.calibrate` | measures the lens → `shared/calibration.yml` |
 | `python -m tracking.set_origin` | captures the home spot → `shared/world_origin.yml` |
 | `python -m tracking.check_marker` | why isn't the marker detected: brightness, sharpness, decode |
-| `python -m tracking.monitor` | prints incoming poses |
-| `python -m tracking.list_cameras` | which camera index is which |
-| `python -m tracking.track` | webcam tracker, for testing without the Kinect |
-| `python -m tracking.fake_tracker` | fake poses, for testing without any camera |
+| `python -m tracking.monitor` | prints the poses KinectReader is sending |
+| `python -m tracking.fake_tracker` | fake poses, so TouchDesigner can be tested with no camera at all |
 | `pytest` | tests |

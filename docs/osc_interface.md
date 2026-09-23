@@ -6,7 +6,7 @@ Three interfaces hold this project together. Change one and update this file in 
 
 | | |
 |---|---|
-| Sent by | `KinectReader.exe` (C++). The Python `tracking.track` sends the same thing from a webcam. |
+| Sent by | `KinectReader.exe` (C++). `tracking.fake_tracker` sends the same message shape with made-up numbers. |
 | Protocol | OSC over UDP |
 | Ports | `9000` TouchDesigner, `9001` the simulation later (`tracking.monitor` uses it meanwhile) |
 | Address | `/car/transform` |

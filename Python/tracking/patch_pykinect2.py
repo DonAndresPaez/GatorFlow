@@ -1,21 +1,13 @@
-"""Fix pykinect2 so it imports on a modern Python.
+'''patch_pykinect2.py: make pykinect2 importable on a modern Python.
 
-    python -m tracking.patch_pykinect2
+Run: python -m tracking.patch_pykinect2
+Changes: the installed pykinect2 package (keeps .backup copies)
 
-pykinect2 was written in 2016 for Python 3.4 and hasn't been updated. Two
-things in it break on new Pythons, and neither matters for reading color
-frames:
+Only needed because Python still reads the Kinect during calibration.
+Yes, it was a mess to install, and yes, a mess to make it compatible with modern Python.
 
-1. `_check_version('')` - a handshake with comtypes. Newer comtypes always
-   rejects it, raising ImportError("Wrong version").
-2. `assert sizeof(...) == N` - checks on Windows struct sizes that differ on
-   64-bit Python.
-3. `time.clock()` - removed from Python in 3.8; `time.perf_counter()` is the
-   modern name for the same thing.
-
-The first two get commented out, the third gets swapped. It makes a .backup
-copy first and is safe to run twice.
-"""
+Rerun it after reinstalling pykinect2, or in a new virtual environment.
+'''
 
 import importlib.util
 import shutil

@@ -1,15 +1,18 @@
-"""Tell the tracker where the world's origin is.
+'''set_origin.py: tell the tracker where the world's origin is.
 
-    python -m tracking.set_origin
+Run: python -m tracking.set_origin
+Makes: tracking/world_origin.json and shared/world_origin.yml
+Needs: a calibrated camera, and the marker sitting still on the home spot
 
-Put the marker flat where you want TouchDesigner's origin to be (the car's
-home spot on the table), keep it still, and run this. It watches the marker
-for a few seconds and saves world_origin.json.
+Without this, poses are measured from the camera, so the model reads as "1.5 m
+away and tilted 30 degrees" because that is how the Kinect hangs. This watches
+the marker at its home spot for two seconds and saves the matrix that makes
+that spot read as zero. Afterwards the tracker reports where the model is
+relative to home, which is what TouchDesigner wants.
 
-After this, the pose the tracker sends is "where the car is relative to its
-home spot", so TouchDesigner sees 0,0,0 when the car is parked there. Rerun it
-whenever the Kinect moves, because it also captures how the camera is angled.
-"""
+Rerun it whenever the Kinect moves, even slightly. It encodes where the
+sensor is.
+'''
 
 import json
 
@@ -18,8 +21,8 @@ import numpy as np
 from scipy.spatial.transform import Rotation
 
 from tracking.camera import open_camera
-from tracking.track import (CAMERA_FILE, OPENCV_TO_TD, ORIGIN_FILE, SHARED_DIR,
-                            MarkerTracker, pose_to_td)
+from tracking.marker import (CAMERA_FILE, OPENCV_TO_TD, ORIGIN_FILE, SHARED_DIR,
+                             MarkerTracker, pose_to_td)
 
 FRAMES = 60  # about 2 seconds
 YAML_FILE = SHARED_DIR / "world_origin.yml"   # what KinectReader (C++) reads

@@ -1,11 +1,14 @@
-"""Watch the OSC messages the tracker is sending, without TouchDesigner.
+'''monitor.py: this watches the poses arriving over OSC.
 
-    python -m tracking.monitor              # listens on the simulation port (9001)
-    python -m tracking.monitor --port 9000  # listens on TouchDesigner's port (only if TD is closed)
+Run: python -m tracking.monitor              (listens on 9001)
+     python -m tracking.monitor --port 9000  (only if TouchDesigner is closed)
 
-Use this to prove the tracker works before blaming TouchDesigner. Two things
-can only be checked here: the numbers arriving at all, and the rate.
-"""
+Prints position, rotation and the message rate a couple of times a second.
+This is how you prove the tracker works before blaming TouchDesigner, and the
+first thing to run when TouchDesigner shows nothing.
+
+Two things only show up here: whether messages arrive at all, and how fast.
+'''
 
 import argparse
 import time

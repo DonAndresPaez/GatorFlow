@@ -1,16 +1,14 @@
-"""Make the checkerboard to print for camera calibration.
+'''make_checkerboard.py: the board to print for camera calibration.
 
-    python -m tracking.make_checkerboard
+Run: python -m tracking.make_checkerboard
+Makes: checkerboard.png
 
-Saves checkerboard.png. Print at 100% scale on Letter or A4, then MEASURE one
-square and put the real number in SQUARE_MM in tracking/calibrate.py. The
-squares are the ruler the calibration uses, so a 5% printing error is a 5%
-error in every distance the tracker reports.
+Prints at 100% scale with squares of SQUARE_MM (set in calibrate.py). Measure
+one square afterwards and correct that number if the printer was off, because
+the squares are the ruler the calibration measures against.
 
-Tape it to something rigid (cardboard, clipboard, a book cover). A sagging
-sheet of paper gives a curved board, and the calibration fits the curve
-instead of the lens.
-"""
+Tape it to cardboard or a clipboard.
+'''
 
 import numpy as np
 from PIL import Image

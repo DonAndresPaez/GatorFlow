@@ -1,14 +1,15 @@
-"""Where frames come from.
+'''camera.py: where frames come from.
 
-The Kinect v2 is not a webcam. It speaks its own USB protocol, so OpenCV can
-never see it no matter what index you try. Frames come through the Kinect SDK
-instead, via pykinect2.
+Imported by: calibrate.py, set_origin.py, check_marker.py
+Run directly: no
 
-Every source here has the same two methods, so the rest of the code doesn't
-care which one is in use:
-    read()     -> BGR image, or None if no new frame yet
-    release()  -> clean up
-"""
+The Kinect v2 is not a webcam: it speaks its own USB protocol, so OpenCV can
+never see it whatever index you try. Frames come through the Kinect SDK via
+pykinect2 instead. Set SOURCE = "webcam" to use a laptop camera while testing.
+
+Every source has the same two methods, so the callers don't care which is in
+use: read() returns a BGR image or None, release() cleans up.
+'''
 
 import time
 

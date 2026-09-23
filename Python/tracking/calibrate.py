@@ -1,14 +1,23 @@
-"""Measure the camera's lens numbers and write them into camera.json.
+'''calibrate.py: measure the camera lens.
 
-    python -m tracking.calibrate
+Run: python -m tracking.calibrate
+Makes: tracking/camera.json and shared/calibration.yml
+Needs: the printed checkerboard (python -m tracking.make_checkerboard)
 
-Print a checkerboard, hold it in front of the camera, and press SPACE whenever
-the colored corners appear. Take 15-20 shots: close, far, tilted, and in the
-corners of the frame. Press q when done.
+How to use it: hold the board in front of the camera, press SPACE whenever the
+corners light up, q when done. 15-20 shots, varied: close, far, tilted, and in
+each corner of the frame. Hold still for each one. Under 0.5 px reprojection
+error is good, over 1.0 means retake them. Think about it as a registering a new finger
+into a fingerprint scanner: the more varied shots, the better it will work.
 
-Why: solvePnP needs to know how the lens maps the world onto pixels. With the
-placeholder numbers in camera.json, every distance is off by a few percent.
-"""
+solvePnP can only turn marker corners into a distance if it knows the lens:
+how zoomed in it is, and how it bends straight lines. This measures both by
+photographing a board whose real geometry is known exactly.
+
+Do it once per camera. It survives the camera being moved, so it does not
+need redoing between sessions. shared/calibration.yml is the file
+KinectReader reads at startup.
+'''
 
 import json
 import shutil
@@ -18,7 +27,7 @@ import cv2
 import numpy as np
 
 from tracking.camera import open_camera
-from tracking.track import CAMERA_FILE, SHARED_DIR
+from tracking.marker import CAMERA_FILE, SHARED_DIR
 
 YAML_FILE = SHARED_DIR / "calibration.yml"   # what KinectReader (C++) reads
 

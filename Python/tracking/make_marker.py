@@ -1,17 +1,19 @@
-"""Make the ArUco marker to print.
+'''make_marker.py: the ArUco marker to print and stick on the model.
 
-    python -m tracking.make_marker
+Run: python -m tracking.make_marker
+Makes: marker.png
 
-Saves marker.png sized so that printing it at 100% scale (no "fit to page")
-gives a black square exactly MARKER_SIZE_MM wide. Glue it to stiff card so it
-stays flat: a bent marker makes the pose wobble.
-"""
+Prints at 100% scale to exactly MARKER_SIZE_MM (set in marker.py), with a
+white border around it that the detector needs. Measure the black square after
+printing: printers lie about scale, and that number is the ruler for every
+distance the tracker reports.
+'''
 
 import cv2
 import numpy as np
 from PIL import Image
 
-from tracking.track import ARUCO_DICT, MARKER_ID, MARKER_SIZE_MM
+from tracking.marker import ARUCO_DICT, MARKER_ID, MARKER_SIZE_MM
 
 PIXELS = 800          # resolution of the black square itself
 OUTPUT = "marker.png"

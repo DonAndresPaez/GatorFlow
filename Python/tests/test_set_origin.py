@@ -1,9 +1,19 @@
+'''test_set_origin.py - checks the origin capture math.
+
+Run: pytest
+
+The important one is that a marker at its home spot comes out as six zeros
+whatever angle the camera is mounted at. That is the whole point of
+set_origin, and it is easy to get subtly wrong in a way you would only notice
+in the lab.
+'''
+
 import numpy as np
 import pytest
 from scipy.spatial.transform import Rotation
 
 from tracking.set_origin import average_pose, camera_to_world_from_home
-from tracking.track import pose_to_td
+from tracking.marker import pose_to_td
 
 
 def test_home_pose_becomes_all_zeros():

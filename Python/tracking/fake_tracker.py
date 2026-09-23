@@ -1,9 +1,12 @@
-"""Send a fake car pose so TouchDesigner and the simulation can be tested
-without the Kinect.
+'''fake_tracker.py: send made-up poses so the rest of the pipeline can be tested.
 
-    python -m tracking.fake_tracker            # car spins slowly in place
-    python -m tracking.fake_tracker --still    # car holds still at the origin (calibration)
-"""
+Run: python -m tracking.fake_tracker          (model spins slowly in place)
+     python -m tracking.fake_tracker --still  (model holds at the origin)
+
+Sends the same OSC message as KinectReader, to the same two ports, so
+TouchDesigner and the simulation cannot tell the difference. Needs no camera
+and no Kinect. Luke, Ana, you can use this to line up the projector without the Kinect in the way.
+'''
 
 import argparse
 import math
