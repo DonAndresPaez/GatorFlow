@@ -17,8 +17,8 @@ import cv2
 import numpy as np
 from scipy.spatial.transform import Rotation
 
-from tracking.track import (CAMERA_FILE, CAMERA_INDEX, OPENCV_TO_TD, ORIGIN_FILE,
-                            MarkerTracker, pose_to_td)
+from tracking.camera import open_camera
+from tracking.track import CAMERA_FILE, OPENCV_TO_TD, ORIGIN_FILE, MarkerTracker, pose_to_td
 
 FRAMES = 60  # about 2 seconds
 
@@ -44,13 +44,13 @@ def average_pose(poses):
 def main():
     cam = json.loads(CAMERA_FILE.read_text())
     tracker = MarkerTracker(cam["camera_matrix"], cam["dist_coeffs"])
-    camera = cv2.VideoCapture(CAMERA_INDEX)
+    camera = open_camera()
     print(f"Hold the marker still at the home spot. Collecting {FRAMES} readings...")
 
     poses = []
     while len(poses) < FRAMES:
-        ok, frame = camera.read()
-        if not ok:
+        frame = camera.read()
+        if frame is None:
             continue
         found = tracker.find(frame)
         if found:

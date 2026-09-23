@@ -18,12 +18,12 @@ from pythonosc.udp_client import SimpleUDPClient #sets up UDP to send the OSC me
 from scipy.spatial.transform import Rotation #deals with rotation formats
 
 import config #brings the shared ports/addresses
+from tracking.camera import open_camera #webcam or Kinect, chosen in camera.py
 
 CAMERA_FILE = Path(__file__).parent / "camera.json"
 ORIGIN_FILE = Path(__file__).parent / "world_origin.json"
 
 # Settings I need to tune in the lab.
-CAMERA_INDEX = 0                  # Kinect v2 color camera usually shows up as a webcam
 ARUCO_DICT = cv2.aruco.DICT_4X4_50
 MARKER_ID = 0
 MARKER_SIZE_MM = 80.0             # measure the black square, not the paper
@@ -107,12 +107,12 @@ def main():
     tracker = MarkerTracker(cam["camera_matrix"], cam["dist_coeffs"])
     smooth = Smoother()
     outputs = [SimpleUDPClient(config.OSC_HOST, p) for p in (config.TD_PORT, config.SIM_PORT)]
-    video = cv2.VideoCapture(CAMERA_INDEX)
+    camera = open_camera()
     print(f"Sending {config.OSC_ADDRESS} to ports {config.TD_PORT} (TD) and {config.SIM_PORT} (simulation)")
 
     while True:
-        ok, frame = video.read()
-        if not ok:
+        frame = camera.read()
+        if frame is None:
             continue
         found = tracker.find(frame)
         if found is None:
@@ -129,7 +129,7 @@ def main():
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
 
-    video.release()
+    camera.release()
     cv2.destroyAllWindows()
 
 

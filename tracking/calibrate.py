@@ -17,10 +17,11 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from tracking.track import CAMERA_FILE, CAMERA_INDEX
+from tracking.camera import open_camera
+from tracking.track import CAMERA_FILE
 
 COLUMNS, ROWS = 9, 6      # inner corners, not squares: a 10x7 board has 9x6
-SQUARE_MM = 25.0          # measure one square after printing
+SQUARE_MM = 20.0          # measure one square after printing; this is the ruler for everything
 MINIMUM_SHOTS = 10
 
 
@@ -29,13 +30,13 @@ def main():
     board[:, :2] = np.mgrid[0:COLUMNS, 0:ROWS].T.reshape(-1, 2) * SQUARE_MM
 
     world_points, image_points = [], []
-    camera = cv2.VideoCapture(CAMERA_INDEX)
+    camera = open_camera()
     size = None
     print("SPACE = keep this shot, q = finish")
 
     while True:
-        ok, frame = camera.read()
-        if not ok:
+        frame = camera.read()
+        if frame is None:
             continue
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         size = gray.shape[::-1]

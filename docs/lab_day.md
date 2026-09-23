@@ -1,83 +1,111 @@
-# Lab day checklist — tracking setup
+# Lab day plan — tracking only
 
-Goal of the session: the Kinect sees the marker, and the pose it sends is measured from the car's home spot on the table. Nothing about the projector image yet.
+**Goal:** the Kinect, mounted next to the projector, sees the marker, and `python -m tracking.track` reports the printed piece's position measured from its home spot on the table.
 
-## Bring
+**Not today:** TouchDesigner, the projected image, and the simulation. None of that code exists yet. The projector only gets switched on at the end, to see whether its light disturbs the camera.
 
-- [ ] Printed marker on stiff card (`python -m tracking.make_marker`, print at 100%, glue flat)
-- [ ] Printed checkerboard on stiff card, if calibrating today
-- [ ] Ruler or tape measure, tape, the printed piece (PMB-1A, 300 x 300 mm)
-- [ ] Laptop with `pip install -r requirements.txt` already done
-- [ ] Kinect + its power adapter and USB 3 cable (Kinect v2 needs USB 3)
+**Minimum success:** steps 1, 2 and 5 done. Everything later builds on the origin from step 5.
 
-## 1. Camera talks to the laptop (15 min)
+## Before leaving
+
+- [ ] `python -m tracking.make_marker`, print `marker.png` at 100% scale (turn off "fit to page"), glue to stiff card
+- [ ] Measure the printed black square. If it isn't 80 mm, set `MARKER_SIZE_MM` in `tracking/track.py`
+- [ ] `pip install -r requirements.txt` on the laptop you're bringing
+- [ ] `pytest` passes (6 tests)
+- [ ] Commit and push, so the laptop and GitHub agree
+- [ ] Pack: checkerboard printout, ruler or tape measure, tape, the PMB-1A piece, Kinect + power adapter + USB 3 cable
+
+## 1. Camera opens — 15 min
 
 ```powershell
 python -m tracking.track
 ```
-Black window or an error means the wrong camera. Try `CAMERA_INDEX = 1`, then 2. Close Zoom/Teams first, they lock the camera.
+Expect live video with "lost" in the corner.
 
-Success: live video with "lost" in the corner.
+| Problem | Try |
+|---|---|
+| Black window or an error | `CAMERA_INDEX = 1` in `tracking/track.py`, then 2 |
+| Camera busy | close Zoom, Teams, the Kinect SDK viewer |
+| `camera.json` error | you're not in the repo root |
 
-## 2. Marker is detected (10 min)
+## 2. Marker detected, Kinect in hand — 10 min
 
-Hold the marker up. The corner label flips to LOCK and colored axes appear on it.
+Hold the Kinect and walk the marker around before mounting anything. The corner label flips to LOCK and colored axes appear on the marker.
 
-If not: more light, less glare, marker flatter, or fill more of the frame.
+Learn two numbers here: the farthest distance that still holds LOCK, and the steepest angle that still holds it. They decide where the Kinect can go in step 3.
 
-## 3. Mount the Kinect (20 min)
+| Problem | Try |
+|---|---|
+| Never detects | more light, less glare, marker flatter, marker bigger in frame |
+| Flickers in and out | move closer, or aim away from a light source |
 
-Next to the projector, looking at the same area. Clamp or tape it so it cannot shift — everything after this is measured relative to where it sits. Check that the car's whole working area is in frame, and that nothing blocks the view.
+## 3. Mount the Kinect — 20 min
 
-## 4. Camera calibration (30 min, can be postponed)
+Next to the projector, pointing at the same area. Check before fixing it: the whole area the piece will move in is in frame, the distance is inside what you measured in step 2, and nothing (your arm, the projector body) blocks the view.
+
+Clamp or tape it so it cannot shift. Everything measured after this assumes it stays put.
+
+## 4. Camera calibration — 30 min, skippable
 
 ```powershell
 python -m tracking.calibrate
 ```
-15-20 shots of the checkerboard at different angles and distances. Aim for a reprojection error under 0.5 px. Skip today if short on time: tracking still works, distances are just a few percent off.
+SPACE keeps a shot, q finishes. 15–20 shots, varying one thing at a time: distance (close, middle, far), tilt (up to ~45° in each direction), and position in the frame (centre, each corner). Fill about a third of the frame with the board. Hold still for each shot so it isn't blurred. Aim for reprojection error under 0.5 px, and retake if it's over 1.0.
 
-## 5. Set the world origin (10 min) ← the real deliverable
+Skip if time is short. Tracking still works with the placeholder lens numbers, distances are just a few percent off. Just note that you skipped it.
 
-Tape a mark on the table where the printed piece will sit. Put the marker flat there (later it gets fixed to the piece itself), then:
+## 5. Set the world origin — 10 min ← the day's deliverable
+
+Tape a mark on the table where the piece will sit. Put the marker flat on that mark, keep it still:
 ```powershell
 python -m tracking.set_origin
 ```
-Writes `tracking/world_origin.json`. The check line at the end should print six zeros, and the noise numbers should be under ~2 mm.
+It collects 60 readings and writes `tracking/world_origin.json`.
 
-**Redo this if the Kinect moves.**
+Check the two lines it prints: the final pose should be six zeros, and the noise should be under about 2 mm. Higher noise means glare, motion blur, or a bent marker.
 
-## 6. Measurement test (20 min)
+From here on, the tracker reports "where the piece is relative to home" instead of "where it is relative to the camera". **Rerun this if the Kinect moves at all.**
 
-Two terminals:
+## 6. Measurement test — 20 min
+
+Two terminals from the repo root:
 ```powershell
 python -m tracking.monitor      # terminal 1
 python -m tracking.track        # terminal 2
 ```
-With the marker at home: all six numbers near zero.
 
-The printed piece is 300 x 300 mm, so there is plenty of flat area to tape the marker onto once the loose-marker test passes. Try that too if time allows: the numbers should behave the same.
-
-| Move the marker | Expected |
+| Do this | Expect |
 |---|---|
-| 100 mm right | one position number goes to about +100 |
-| 100 mm toward the ceiling camera | another goes to about +100 |
-| rotate 90° flat on the table | one rotation number goes to about 90 |
-| leave it still | numbers drift by only 1-2 mm |
+| Marker on the home mark | all six numbers within a few mm / degrees of zero |
+| Slide 100 mm right | one position number → about +100 |
+| Slide 100 mm away from you | another → about ±100 |
+| Lift 100 mm off the table | the third → about ±100 |
+| Rotate 90° flat on the table | one rotation number → about 90 |
+| Leave still for 30 s | drift only 1–2 mm |
+| Cover the marker | numbers stop updating, no crash |
 
-Write down which of X/Y/Z moved for each direction. If a sign is flipped, that's fixed later in TouchDesigner's axis check, not by editing the tracker.
+**Write down which axis moved for each direction, and its sign.** That table is what makes the TouchDesigner setup quick later. Don't edit the code to "fix" signs today.
 
-## 7. Real conditions (15 min)
+Also note the message rate the monitor prints. Under about 15/s means the camera or the laptop is the bottleneck.
 
-Turn the projector on, aimed at the marker area. Watch whether the projected light washes out detection. If it does, note it: the marker may need to sit where the projection doesn't hit it, or the projected image may need a dark patch around it.
+## 7. Marker on the real piece — 15 min
 
-## Record before leaving
+Tape the marker onto a flat spot on PMB-1A (300 × 300 mm, so there's room). Repeat the moves from step 6 with the piece itself.
 
-- Camera index, Kinect mounting spot, distance to the table
-- Reprojection error from calibration
-- Which direction maps to which axis
-- Noise level while still, and the message rate from the monitor
-- Whether the projector interferes
+Decide and note: where on the piece the marker sits, and whether it stays visible when the piece is turned the way it will be during a demo.
 
-## If it goes badly
+## 8. Projector interference — 15 min
 
-Fallback in order: no Kinect → use a laptop webcam for the whole test; no detection at all → print the marker bigger; no time → at minimum get steps 1, 2 and 5 done, since the origin is what everything else builds on.
+Turn the projector on, aimed at the area, and watch the LOCK label while it shines on the marker. This is the one risk that can only be answered in the real room.
+
+If detection drops, note which of these helps: a marker position the projection doesn't reach, a darker projected image, or a larger marker.
+
+## Before leaving, write down
+
+Fill in `docs/lab_log.md` and commit it. Numbers to capture: camera index, where the Kinect is mounted and how far from the table, calibration error (or "skipped"), the axis table from step 6, the noise level and message rate, where the marker sits on the piece, and what the projector did.
+
+## If things go wrong
+
+- Kinect won't work at all → use the laptop webcam and do steps 1, 2, 5, 6 anyway. The Kinect swap is then just a camera index change.
+- No detection anywhere → print the marker larger, at 120 mm.
+- Out of time → steps 1, 2, 5. Nothing else matters if the origin isn't set.
