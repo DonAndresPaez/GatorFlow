@@ -1,46 +1,79 @@
 # GatorFlow
 
-Real-time aerodynamic projection mapping: a Kinect tracks a 3D-printed model, a simulation computes the pressure on it, and TouchDesigner projects the result back onto the object.
+Real-time aerodynamic projection mapping. A Kinect tracks a 3D-printed model, a simulation computes the pressure on it, and TouchDesigner projects the result back onto the object.
 
-**Right now the repo only holds the tracking stage.** The simulation and TouchDesigner parts get added once tracking works on real hardware.
+**Only the tracking stage exists so far.**
 
 ```
-[ Kinect ] → tracking → OSC pose → (later: simulation → heatmap → TouchDesigner → projector)
+Kinect ──► KinectReader (C++) ──OSC /car/transform──► TouchDesigner ──► projector
+                  ▲                                   (later: simulation on 9001)
+                  │ reads at startup
+            shared/calibration.yml
+            shared/world_origin.yml
+                  ▲
+                  │ written by
+            Python calibration tools
 ```
 
-## Folders
+## Layout
 
-| Path | What |
-|---|---|
-| `tracking/` | Finds the printed model with the camera and sends its pose over OSC |
-| `models/` | `PMB-1A.stl`, the printed practice piece: 300 × 300 mm footprint, 58 mm tall, Z is up |
-| `docs/` | `osc_interface.md` (the message format), `lab_day.md` (setup checklist) |
-| `tests/` | `pytest` |
-| `config.py` | Ports and the message address |
+| Folder | What | Owner |
+|---|---|---|
+| `KinectReader/` | The tracker that runs during a session: Kinect SDK → ArUco → pose → OSC | Jules |
+| `Python/` | Calibration and setup tooling, plus a webcam tracker for testing without the Kinect | Andres |
+| `shared/` | `calibration.yml` and `world_origin.yml`, written by Python and read by C++ |  |
+| `docs/` | The message format, the lab procedure, the lab log |  |
+| `models/` | `PMB-1A.stl`, the printed practice piece (300 × 300 mm, 58 mm tall, Z up) |  |
 
-## Setup
+Why two languages: the Kinect v2 has no working Python binding on current Python versions, so the live path is C++ against the Kinect SDK. The setup tools don't touch that sensor API and are quicker to work on in Python.
+
+## Order of a session
 
 ```powershell
-pip install -r requirements.txt
+# once per printed marker / board
+cd Python
+python -m tracking.make_marker
+python -m tracking.make_checkerboard
+
+# once per camera
+python -m tracking.calibrate        # writes shared/calibration.yml
+
+# every time the Kinect moves
+python -m tracking.set_origin       # writes shared/world_origin.yml
+
+# then the tracker itself
+cd ..\KinectReader\build\Debug
+.\KinectReader.exe
 ```
 
-## Run (from the repo root)
+Watch what it sends without TouchDesigner:
 
-| Command | What it does |
+```powershell
+cd Python
+python -m tracking.monitor          # prints poses arriving on 9001
+```
+
+## Building KinectReader
+
+Needs the Kinect for Windows SDK 2.0 (sets `KINECTSDK20_DIR`), OpenCV with contrib (the path is set in `CMakeLists.txt`), and Visual Studio 2022.
+
+```powershell
+cd KinectReader
+cmake -B build
+cmake --build build --config Debug
+```
+
+## Python tools
+
+| Command (from `Python/`) | What it does |
 |---|---|
-| `python -m tracking.make_marker` | Makes `marker.png` to print |
-| `python -m tracking.calibrate` | Measures the camera lens into `tracking/camera.json` |
-| `python -m tracking.set_origin` | Saves where the world's origin is, after the camera is mounted |
-| `python -m tracking.track` | The real tracker |
-| `python -m tracking.monitor` | Prints the poses arriving over OSC |
-| `python -m tracking.fake_tracker` | Sends a fake pose, no camera needed |
-| `pytest` | Tests |
-
-## Order of work
-
-1. ✅ Tracking code, tested on fake data
-2. ⬜ Tracking working on the Kinect in the lab (`docs/lab_day.md`)
-3. ⬜ TouchDesigner receiving the pose and moving the model on screen
-4. ⬜ Projector calibration on the printed piece
-5. ⬜ Simulation: pressure on the mesh → heatmap
-6. ⬜ Full pipeline
+| `python -m tracking.make_marker` | `marker.png` to print |
+| `python -m tracking.make_checkerboard` | `checkerboard.png` to print |
+| `python -m tracking.calibrate` | measures the lens → `shared/calibration.yml` |
+| `python -m tracking.set_origin` | captures the home spot → `shared/world_origin.yml` |
+| `python -m tracking.check_marker` | why isn't the marker detected: brightness, sharpness, decode |
+| `python -m tracking.monitor` | prints incoming poses |
+| `python -m tracking.list_cameras` | which camera index is which |
+| `python -m tracking.track` | webcam tracker, for testing without the Kinect |
+| `python -m tracking.fake_tracker` | fake poses, for testing without any camera |
+| `pytest` | tests |

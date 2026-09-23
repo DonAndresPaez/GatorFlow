@@ -18,11 +18,26 @@ import cv2
 import numpy as np
 
 from tracking.camera import open_camera
-from tracking.track import CAMERA_FILE
+from tracking.track import CAMERA_FILE, SHARED_DIR
+
+YAML_FILE = SHARED_DIR / "calibration.yml"   # what KinectReader (C++) reads
 
 COLUMNS, ROWS = 9, 6      # inner corners, not squares: a 10x7 board has 9x6
 SQUARE_MM = 20.0          # measure one square after printing; this is the ruler for everything
 MINIMUM_SHOTS = 10
+
+
+def write_opencv_yaml(camera_matrix, dist_coeffs, size, error):
+    """cv2.FileStorage writes the format cv::FileStorage reads, so the C++ side
+    gets the same calibration without anyone converting anything by hand."""
+    YAML_FILE.parent.mkdir(parents=True, exist_ok=True)
+    fs = cv2.FileStorage(str(YAML_FILE), cv2.FILE_STORAGE_WRITE)
+    fs.write("cameraMatrix", camera_matrix)
+    fs.write("distortionCoefficients", dist_coeffs)
+    fs.write("imageWidth", int(size[0]))
+    fs.write("imageHeight", int(size[1]))
+    fs.write("reprojectionErrorPx", float(error))
+    fs.release()
 
 
 def main():
@@ -77,6 +92,10 @@ def main():
         "reprojection_error_px": float(error),
     }, indent=2))
     print(f"Wrote {CAMERA_FILE}")
+
+    # Same numbers again in OpenCV's YAML format, which is what the C++ side reads.
+    write_opencv_yaml(K, dist, size, error)
+    print(f"Wrote {YAML_FILE}  (used by KinectReader)")
 
 
 if __name__ == "__main__":

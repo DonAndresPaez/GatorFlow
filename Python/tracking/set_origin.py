@@ -18,9 +18,11 @@ import numpy as np
 from scipy.spatial.transform import Rotation
 
 from tracking.camera import open_camera
-from tracking.track import CAMERA_FILE, OPENCV_TO_TD, ORIGIN_FILE, MarkerTracker, pose_to_td
+from tracking.track import (CAMERA_FILE, OPENCV_TO_TD, ORIGIN_FILE, SHARED_DIR,
+                            MarkerTracker, pose_to_td)
 
 FRAMES = 60  # about 2 seconds
+YAML_FILE = SHARED_DIR / "world_origin.yml"   # what KinectReader (C++) reads
 
 
 def camera_to_world_from_home(R_home, t_home):
@@ -76,6 +78,12 @@ def main():
     camera_to_world = camera_to_world_from_home(R, t)
     ORIGIN_FILE.write_text(json.dumps({"camera_to_world": camera_to_world.tolist()}, indent=2))
     print(f"Wrote {ORIGIN_FILE}")
+
+    YAML_FILE.parent.mkdir(parents=True, exist_ok=True)
+    fs = cv2.FileStorage(str(YAML_FILE), cv2.FILE_STORAGE_WRITE)
+    fs.write("cameraToWorld", camera_to_world)
+    fs.release()
+    print(f"Wrote {YAML_FILE}  (used by KinectReader)")
     print("Check (should be six zeros):", [round(v, 2) for v in pose_to_td(R, t, camera_to_world)])
 
 

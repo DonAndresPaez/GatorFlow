@@ -23,6 +23,9 @@ from tracking.camera import open_camera #webcam or Kinect, chosen in camera.py
 CAMERA_FILE = Path(__file__).parent / "camera.json"
 ORIGIN_FILE = Path(__file__).parent / "world_origin.json"
 
+# Files both languages read: Python writes them here, KinectReader (C++) reads them.
+SHARED_DIR = Path(__file__).resolve().parents[2] / "shared"
+
 # Settings I need to tune in the lab.
 ARUCO_DICT = cv2.aruco.DICT_4X4_50
 MARKER_ID = 0

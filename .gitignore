@@ -1,15 +1,32 @@
+# Python
 __pycache__/
 *.pyc
 .venv/
 venv/
 .pytest_cache/
 
+# C++ build output: generated, machine-specific, and big
+KinectReader/build/
+KinectReader/out/
+*.exe
+*.pdb
+*.ilk
+*.obj
+*.sln
+*.vcxproj*
+
+# Machine-specific calibration: belongs to one camera in one mounting
+shared/calibration.yml
+shared/world_origin.yml
+Python/tracking/world_origin.json
+Python/tracking/camera.json.backup
+
 # TouchDesigner backups
 touchdesigner/Backup/
 *.[0-9]*.toe
 CrashAutoSave*
 
-# Outputs
+# Printables and outputs
 *.png
 !docs/*.png
 
@@ -17,8 +34,3 @@ CrashAutoSave*
 Thumbs.db
 .vscode/
 .idea/
-
-# tracking outputs
-tracking/world_origin.json
-tracking/camera.json.backup
-marker.png

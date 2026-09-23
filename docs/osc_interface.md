@@ -1,23 +1,56 @@
-# OSC interface
+# Message and file formats
 
-Every value here is also in `config.py`. Change both together.
+Three interfaces hold this project together. Change one and update this file in the same commit.
 
-## Pose: tracking → TouchDesigner
+## 1. Pose: KinectReader → TouchDesigner (and later the simulation)
 
 | | |
 |---|---|
+| Sent by | `KinectReader.exe` (C++). The Python `tracking.track` sends the same thing from a webcam. |
 | Protocol | OSC over UDP |
-| Ports | `9000` TouchDesigner, `9001` second copy (the simulation later; `tracking.monitor` for now) |
+| Ports | `9000` TouchDesigner, `9001` the simulation later (`tracking.monitor` uses it meanwhile) |
 | Address | `/car/transform` |
-| Values | `[tx, ty, tz, rx, ry, rz]`, floats |
+| Values | 6 floats: `tx, ty, tz, rx, ry, rz` |
 | Units | position in **millimetres**, rotation in **degrees** |
 | Axes | TouchDesigner world: **Y up**. Rotation order X, then Y, then Z |
-| Origin | the model's home spot on the table, captured by `python -m tracking.set_origin` |
-| Rate | every camera frame where the marker is found (~30 Hz). Nothing is sent when it's lost, so TouchDesigner holds the last pose. |
+| Origin | the model's home spot on the table, captured by `set_origin` |
+| Rate | every frame where the marker is found (~30 Hz). Nothing is sent when it's lost, so TouchDesigner holds the last pose. |
+| Target in TD | `geo1` only, **never** `cam1` |
 
-The tracker does all the unit and axis conversion, since OpenCV works in radians with Y pointing down. TouchDesigner uses the numbers as they arrive, and they move **`geo1` only, never `cam1`**.
+**Fallback format.** `OutputConfiguration::SendOsc` in `main.cpp` can be set to `false`, which sends a plain text line instead — `"12.500 -3.100 840.000 1.20 0.50 -0.30"`. That needs a **UDP In DAT** in TouchDesigner rather than an OSC In DAT. Pick one with whoever builds the TD side and note it here.
 
-**Axis check in the lab:** move the model by hand along +X, +Y, +Z and watch the numbers. If an axis is flipped, fix it in `tracking/world_origin.json` by rerunning `set_origin`, or in `CAMERA_TO_WORLD`, not in TouchDesigner.
+**Who converts what.** The tracker does all of it: OpenCV works in radians with Y pointing down, and the Kinect's colour frame arrives mirrored. By the time a pose leaves the tracker it is already un-mirrored, Y-up, in degrees, and measured from the home spot. TouchDesigner uses the numbers as they arrive.
+
+**Axis check in the lab:** move the piece by hand along +X, +Y, +Z and watch the numbers. A flipped axis means the origin capture or the mirror flag is wrong, not TouchDesigner.
+
+## 2. `shared/calibration.yml` — Python → C++
+
+Written by `python -m tracking.calibrate`, read by `loadCameraCalibration`. OpenCV YAML, so `cv2.FileStorage` writes exactly what `cv::FileStorage` reads.
+
+| Key | Type |
+|---|---|
+| `cameraMatrix` | 3×3 double |
+| `distortionCoefficients` | 5×1 double |
+| `imageWidth`, `imageHeight` | int (informational) |
+| `reprojectionErrorPx` | double (informational; under 0.5 is good) |
+
+## 3. `shared/world_origin.yml` — Python → C++
+
+Written by `python -m tracking.set_origin`, read by `loadWorldOrigin`.
+
+| Key | Type |
+|---|---|
+| `cameraToWorld` | 4×4 double, millimetres |
+
+It's the inverse of the marker's pose at its home spot, so the chain
+
+```
+cameraToWorld · diag(1, −1, −1, 1) · (marker pose in the camera)
+```
+
+gives zero when the piece is parked at home. If the file is missing, the tracker uses the identity matrix and reports poses relative to the camera, which still works but isn't anchored to the table.
+
+**Regenerate it whenever the Kinect moves.** It encodes where the sensor is.
 
 ## Still to define
 
