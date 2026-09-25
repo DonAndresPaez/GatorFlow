@@ -1,4 +1,4 @@
-'''config.py - the settings the two languages have to agree on.
+'''config.py - the settings all the files have to agree on.
 
 Imported by: monitor.py, fake_tracker.py, marker.py
 Mirrored in: KinectReader/src/main.cpp (OutputConfiguration namespace)
