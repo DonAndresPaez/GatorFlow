@@ -1,8 +1,8 @@
-'''calibrate.py: measure the camera lens.
+'''camera_lens.py: measure the camera lens.
 
-Run: python -m tracking.calibrate
-Makes: tracking/camera.json and shared/calibration.yml
-Needs: the printed checkerboard (python -m tracking.make_checkerboard)
+Run: python -m calibration.camera_lens        (from tools/)
+Makes: calibration/<camera name>/intrinsics.yml  (the old one is kept as intrinsics.backup.yml)
+Needs: the printed checkerboard (python -m calibration.make_checkerboard)
 
 How to use it: hold the board in front of the camera, press SPACE whenever the
 corners light up, q when done. 15-20 shots, varied: close, far, tilted, and in
@@ -14,33 +14,29 @@ solvePnP can only turn marker corners into a distance if it knows the lens:
 how zoomed in it is, and how it bends straight lines. This measures both by
 photographing a board whose real geometry is known exactly.
 
-Do it once per camera. It survives the camera being moved, so it does not
-need redoing between sessions. shared/calibration.yml is the file
-KinectReader reads at startup.
+Do it once per camera AND resolution (setup/camera.yml). It survives the
+camera being moved, so it does not need redoing between sessions. Changing
+the resolution, zoom or focus does need it. KinectReader reads the same file.
 '''
 
-import json
 import shutil
-from pathlib import Path
 
 import cv2
 import numpy as np
 
-from tracking.camera import open_camera
-from tracking.marker import CAMERA_FILE, SHARED_DIR
-
-YAML_FILE = SHARED_DIR / "calibration.yml"   # what KinectReader (C++) reads
+from common import paths
+from common.camera import PROFILE, open_camera
 
 COLUMNS, ROWS = 9, 6      # inner corners, not squares: a 10x7 board has 9x6
-SQUARE_MM = 20.0          # measure one square after printing; this is the ruler for everything
+SQUARE_MM = 22.0          # measure one square after printing; this is the ruler for everything
 MINIMUM_SHOTS = 10
 
 
-def write_opencv_yaml(camera_matrix, dist_coeffs, size, error):
+def write_intrinsics(path, camera_matrix, dist_coeffs, size, error):
     """cv2.FileStorage writes the format cv::FileStorage reads, so the C++ side
     gets the same calibration without anyone converting anything by hand."""
-    YAML_FILE.parent.mkdir(parents=True, exist_ok=True)
-    fs = cv2.FileStorage(str(YAML_FILE), cv2.FILE_STORAGE_WRITE)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fs = cv2.FileStorage(str(path), cv2.FILE_STORAGE_WRITE)
     fs.write("cameraMatrix", camera_matrix)
     fs.write("distortionCoefficients", dist_coeffs)
     fs.write("imageWidth", int(size[0]))
@@ -56,6 +52,7 @@ def main():
     world_points, image_points = [], []
     camera = open_camera()
     size = None
+    print(f"Calibrating camera '{PROFILE.name}' (setup/camera.yml)")
     print("SPACE = keep this shot, q = finish")
 
     while True:
@@ -92,20 +89,12 @@ def main():
     error, K, dist, _, _ = cv2.calibrateCamera(world_points, image_points, size, None, None)
     print(f"Reprojection error: {error:.3f} pixels (under 0.5 is good, over 1.0 means retake the shots)")
 
-    if CAMERA_FILE.exists():
-        shutil.copy(CAMERA_FILE, CAMERA_FILE.with_suffix(".json.backup"))
-    Path(CAMERA_FILE).write_text(json.dumps({
-        "camera_matrix": K.tolist(),
-        "dist_coeffs": dist.ravel().tolist(),
-        "image_size": list(size),
-        "reprojection_error_px": float(error),
-    }, indent=2))
-    print(f"Wrote {CAMERA_FILE}")
-
-    # Same numbers again in OpenCV's YAML format, which is what the C++ side reads.
-    write_opencv_yaml(K, dist, size, error)
-    print(f"Wrote {YAML_FILE}  (used by KinectReader)")
-
+    path = paths.intrinsics_file()
+    if path.exists():
+        shutil.copy(path, path.with_name("intrinsics.backup.yml"))
+    write_intrinsics(path, K, dist, size, error)
+    print(f"Wrote {path.relative_to(paths.REPO)}  (read by the Python tools and KinectReader)")
+    print("If the camera has also moved, run: python -m calibration.set_origin")
 
 if __name__ == "__main__":
     main()

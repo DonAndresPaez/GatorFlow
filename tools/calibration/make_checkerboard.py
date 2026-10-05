@@ -1,9 +1,9 @@
 '''make_checkerboard.py: the board to print for camera calibration.
 
-Run: python -m tracking.make_checkerboard
-Makes: checkerboard.png
+Run: python -m calibration.make_checkerboard
+Makes: tools/output/checkerboard.png
 
-Prints at 100% scale with squares of SQUARE_MM (set in calibrate.py). Measure
+Prints at 100% scale with squares of SQUARE_MM (set in camera_lens.py). Measure
 one square afterwards and correct that number if the printer was off, because
 the squares are the ruler the calibration measures against.
 
@@ -13,10 +13,11 @@ Tape it to cardboard or a clipboard.
 import numpy as np
 from PIL import Image
 
-from tracking.calibrate import COLUMNS, ROWS, SQUARE_MM
+from calibration.camera_lens import COLUMNS, ROWS, SQUARE_MM
+from common import paths
 
 PIXELS_PER_SQUARE = 100
-OUTPUT = "checkerboard.png"
+OUTPUT = paths.output_file("checkerboard.png")
 
 
 def main():

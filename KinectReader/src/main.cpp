@@ -20,6 +20,7 @@
 
 // Libraries for types, algorithms, and data structures
 #include <algorithm>
+#include <utility>
 #include <vector>
 #include <string>
 #include <cstdint>
@@ -33,13 +34,19 @@
 #include <iomanip>
 
 namespace ArucoConfiguration {
-    constexpr int ArucoMarkerID = 0;
-    constexpr double ArucoMarkerSize = 100;   // mm, measure the printed black square
-    constexpr cv::aruco::PredefinedDictionaryType Dictionary = cv::aruco::DICT_4X4_50;
+// Which markers exist, their dictionary, how big they are and where they sit on
+// the base plate all live in setup/plate.yml, read at startup (see
+// loadMarkerLayout), so this file and the Python tools can never disagree.
+// Which camera is used (and whether its image is mirrored) is in setup/camera.yml.
+
+// A solve whose corners land further than this (RMS, pixels) from where the
+// layout says they should be is discarded: wrong layout numbers, a marker
+// peeling off, or a misdetection. Matches MAX_REPROJECTION_ERROR_PX in marker.py.
+    constexpr double MaxReprojectionErrorPx = 3.0;
 }
 
 namespace OutputConfiguration {
-// Where the pose goes. Matches Python/config.py and docs/osc_interface.md.
+// Where the pose goes. Matches tools/common/config.py and docs/osc_interface.md.
     const std::string DestinationAddress = "127.0.0.1";
     constexpr int TouchDesignerPort = 9000;
     constexpr int SimulationPort = 9001;
@@ -48,12 +55,6 @@ namespace OutputConfiguration {
 // true  -> real OSC packets, which TouchDesigner's OSC In DAT understands
 // false -> a plain text line "tx ty tz rx ry rz", which needs a UDP In DAT instead
     constexpr bool SendOsc = true;
-
-// The Kinect color frame comes in mirrored. ArUco reads a mirrored marker as a
-// completely different id (a DICT_4X4_50 id 0 decodes as DICT_4X4_1000 id 871),
-// and solvePnP would return a left-handed pose, so flip it back before use.
-// If markers are detected fine with this off, turn it off.
-    constexpr bool MirrorColorFrame = true;
 
 // Pose smoothing: 1.0 = raw readings, lower = steadier but laggier.
     constexpr double SmoothingAlpha = 0.5;
@@ -79,25 +80,53 @@ void safeRelease(T*& resource) {
     }
 }
 
-// Files written by the Python side (calibration.yml, world_origin.yml) live in
-// the repo's shared/ folder, but the executable runs from build/Debug, so look
-// upward for them instead of demanding one exact path.
-std::string findSharedFile(const std::string& filename) {
-    const std::vector<std::string> candidates = {
-        filename,
-        "shared/" + filename,
-        "../shared/" + filename,
-        "../../shared/" + filename,
-        "../../../shared/" + filename,
-        "../../../../shared/" + filename
-    };
-    for (const std::string& candidate : candidates) {
-        std::ifstream probe(candidate);
+// The repo layout this program relies on (see README.md):
+//   setup/camera.yml                      which camera, and whether it is mirrored
+//   setup/plate.yml                       the marker plate
+//   calibration/<camera>/intrinsics.yml   lens numbers   (python -m calibration.camera_lens)
+//   calibration/<camera>/world_origin.yml camera's spot  (python -m calibration.set_origin)
+// The executable runs from KinectReader/build/Debug, so walk up from the
+// working directory until the folder holding setup/camera.yml is found.
+std::string findRepoRoot() {
+    std::string prefix;
+    for (int level = 0; level < 6; ++level) {
+        std::ifstream probe(prefix + "setup/camera.yml");
         if (probe.good()) {
-            return candidate;
+            return prefix;
         }
+        prefix += "../";
     }
-    return std::string();
+    return std::string("?");
+}
+
+bool fileExists(const std::string& filename) {
+    std::ifstream probe(filename);
+    return probe.good();
+}
+
+// setup/camera.yml, the parts the C++ side needs. Python reads the same file.
+struct CameraProfile {
+    std::string name;
+    std::string source;
+    bool mirrored = true;
+};
+
+CameraProfile loadCameraProfile(const std::string& filename) {
+    cv::FileStorage file(filename, cv::FileStorage::READ);
+    if (!file.isOpened()) {
+        throw std::runtime_error("Failed to open camera profile: " + filename);
+    }
+    CameraProfile profile;
+    file["name"] >> profile.name;
+    file["source"] >> profile.source;
+    if (!file["mirrored"].empty()) {
+        profile.mirrored = static_cast<int>(file["mirrored"]) != 0;
+    }
+    file.release();
+    if (profile.name.empty()) {
+        throw std::runtime_error(filename + " needs a name");
+    }
+    return profile;
 }
 
 struct CameraCalibration {
@@ -117,7 +146,7 @@ CameraCalibration loadCameraCalibration(const std::string& filename) {
     CameraCalibration calibration;
 
 // cv::FileStorage reads and writes XML, YAML, or JSON files containing camera calibration data.
-// This file is written by Python: python -m tracking.calibrate
+// This file is written by Python: python -m calibration.camera_lens (calibration/<camera>/intrinsics.yml)
     cv::FileStorage file(filename, cv::FileStorage::READ);
     if (file.isOpened()) {
         file["cameraMatrix"] >> calibration.cameraMatrix;
@@ -133,7 +162,8 @@ CameraCalibration loadCameraCalibration(const std::string& filename) {
 
         file.release();
     } else {
-        throw std::runtime_error("Failed to open camera calibration file: " + filename);
+        throw std::runtime_error("Failed to open camera calibration file: " + filename
+                                 + "\nRun 'python -m calibration.camera_lens' (from tools/) first.");
     }
 
     return calibration;
@@ -141,7 +171,7 @@ CameraCalibration loadCameraCalibration(const std::string& filename) {
 
 /*
  Where the camera sits in the TouchDesigner world, as a 4x4 matrix in millimetres.
- Written by Python: python -m tracking.set_origin, with the marker sitting on the
+ Written by Python: python -m calibration.set_origin, with the plate sitting on the
  spot that should read as zero. Identity means "the world origin is the camera
  itself", which is what you get until that has been run.
 */
@@ -149,7 +179,8 @@ cv::Matx44d loadWorldOrigin(const std::string& filename) {
     cv::Matx44d cameraToWorld = cv::Matx44d::eye();
 
     if (filename.empty()) {
-        std::cout << "No world_origin.yml found: poses will be relative to the camera." << std::endl;
+        std::cout << "No world_origin.yml found: poses will be relative to the camera. "
+                  << "Run 'python -m calibration.set_origin' (from tools/)." << std::endl;
         return cameraToWorld;
     }
 
@@ -179,6 +210,94 @@ cv::Matx44d loadWorldOrigin(const std::string& filename) {
     return cameraToWorld;
 }
 
+/*
+ Where the ArUco markers sit on the base plate, from setup/plate.yml (the same
+ file the Python tools read). The plate frame's origin is the centre of the
+ plate, X to its right edge, Y to its far edge, Z up, in millimetres.
+*/
+struct MarkerLayout {
+    cv::aruco::PredefinedDictionaryType dictionary = cv::aruco::DICT_4X4_50;
+    std::string dictionaryName = "DICT_4X4_50";
+    double markerSizeMm = 0.0;
+    std::vector<int> ids;
+// The 4 corners of each marker in the plate frame, in the order ArUco reports
+// them: top-left, top-right, bottom-right, bottom-left.
+    std::vector<std::vector<cv::Point3f>> corners;
+};
+
+// The dictionary is written by name in plate.yml ("DICT_4X4_50"), the same
+// name Python looks up in cv2.aruco.
+cv::aruco::PredefinedDictionaryType dictionaryFromName(const std::string& name) {
+    static const std::pair<const char*, cv::aruco::PredefinedDictionaryType> known[] = {
+        {"DICT_4X4_50", cv::aruco::DICT_4X4_50},   {"DICT_4X4_100", cv::aruco::DICT_4X4_100},
+        {"DICT_4X4_250", cv::aruco::DICT_4X4_250}, {"DICT_4X4_1000", cv::aruco::DICT_4X4_1000},
+        {"DICT_5X5_50", cv::aruco::DICT_5X5_50},   {"DICT_5X5_100", cv::aruco::DICT_5X5_100},
+        {"DICT_5X5_250", cv::aruco::DICT_5X5_250}, {"DICT_5X5_1000", cv::aruco::DICT_5X5_1000},
+        {"DICT_6X6_50", cv::aruco::DICT_6X6_50},   {"DICT_6X6_100", cv::aruco::DICT_6X6_100},
+        {"DICT_6X6_250", cv::aruco::DICT_6X6_250}, {"DICT_6X6_1000", cv::aruco::DICT_6X6_1000},
+        {"DICT_7X7_50", cv::aruco::DICT_7X7_50},   {"DICT_7X7_100", cv::aruco::DICT_7X7_100},
+        {"DICT_7X7_250", cv::aruco::DICT_7X7_250}, {"DICT_7X7_1000", cv::aruco::DICT_7X7_1000},
+        {"DICT_ARUCO_ORIGINAL", cv::aruco::DICT_ARUCO_ORIGINAL},
+    };
+    for (const auto& entry : known) {
+        if (name == entry.first) {
+            return entry.second;
+        }
+    }
+    throw std::runtime_error("plate.yml: unknown dictionary '" + name + "'");
+}
+
+MarkerLayout loadMarkerLayout(const std::string& filename) {
+    cv::FileStorage file(filename, cv::FileStorage::READ);
+    if (!file.isOpened()) {
+        throw std::runtime_error("Failed to open marker layout file: " + filename);
+    }
+
+    MarkerLayout layout;
+    if (!file["dictionary"].empty()) {
+        file["dictionary"] >> layout.dictionaryName;
+    }
+    layout.dictionary = dictionaryFromName(layout.dictionaryName);
+    file["markerSizeMm"] >> layout.markerSizeMm;
+
+// markers: a list of { id, xMm, yMm, rotationDeg } maps, one per marker.
+    std::vector<int> ids;
+    std::vector<double> centersX, centersY, rotationsDeg;
+    const cv::FileNode markers = file["markers"];
+    for (cv::FileNodeIterator it = markers.begin(); it != markers.end(); ++it) {
+        const cv::FileNode marker = *it;
+        ids.push_back(static_cast<int>(marker["id"]));
+        centersX.push_back(static_cast<double>(marker["xMm"]));
+        centersY.push_back(static_cast<double>(marker["yMm"]));
+        rotationsDeg.push_back(marker["rotationDeg"].empty() ? 0.0 : static_cast<double>(marker["rotationDeg"]));
+    }
+    file.release();
+
+    const int count = static_cast<int>(ids.size());
+    if (layout.markerSizeMm <= 0.0 || count == 0) {
+        throw std::runtime_error("plate.yml needs markerSizeMm and at least one entry under markers");
+    }
+
+// Each marker is a square of markerSizeMm around its centre, turned by its
+// rotation about Z, lying flat on the plate (z = 0).
+    const double half = layout.markerSizeMm / 2.0;
+    const double local[4][2] = {{-half, half}, {half, half}, {half, -half}, {-half, -half}};
+    for (int i = 0; i < count; ++i) {
+        const double angle = rotationsDeg[i] * CV_PI / 180.0;
+        const double centerX = centersX[i];
+        const double centerY = centersY[i];
+        std::vector<cv::Point3f> markerCorners;
+        for (const auto& point : local) {
+            markerCorners.emplace_back(
+                static_cast<float>(centerX + std::cos(angle) * point[0] - std::sin(angle) * point[1]),
+                static_cast<float>(centerY + std::sin(angle) * point[0] + std::cos(angle) * point[1]),
+                0.0f);
+        }
+        layout.ids.push_back(ids[i]);
+        layout.corners.push_back(markerCorners);
+    }
+    return layout;
+}
 /*
  Rotation matrix to Euler angles conversion
  Takes a 3x3 rotation matrix defined using the Rodrigues rotation formula as input
@@ -485,6 +604,12 @@ private:
     std::vector<BYTE> bgraBuffer;
 
 public:
+// The Kinect color frame comes in mirrored. ArUco reads a mirrored marker as a
+// completely different id (a DICT_4X4_50 id 0 decodes as DICT_4X4_1000 id 871),
+// and solvePnP would return a left-handed pose, so flip it back before use.
+// Set from "mirrored" in setup/camera.yml.
+    bool mirrorColorFrame = true;
+
     ~KinectColorReader() {
         close();
     }
@@ -587,8 +712,8 @@ public:
         cv::cvtColor(bgraImage, outputBGR, cv::COLOR_BGRA2BGR);
 
 // Undo the sensor's mirroring, otherwise the marker decodes as a different id
-// and the pose comes out left-handed. See OutputConfiguration::MirrorColorFrame.
-        if (OutputConfiguration::MirrorColorFrame) {
+// and the pose comes out left-handed. See mirrorColorFrame above.
+        if (mirrorColorFrame) {
             cv::flip(outputBGR, outputBGR, 1);
         }
 
@@ -605,6 +730,12 @@ public:
 };
 
 // https://docs.opencv.org/4.13.0/d5/dae/tutorial_aruco_detection.html
+// Four markers on a base plate, solved together: every visible marker's four
+// corners go into ONE solvePnP, so the pose comes from up to 16 points spread
+// across the plate instead of 4 on a single small square. Rotation is much
+// steadier (longer lever arm), the flip a lone flat marker suffers when seen
+// head-on mostly disappears, and tracking survives some markers being covered.
+// The pose reported is the PLATE's centre, not any one marker.
 class ArucoPoseTracker {
 private:
     cv::Mat cameraMatrix;
@@ -615,19 +746,34 @@ private:
     cv::aruco::DetectorParameters arucoParameters;
 // https://docs.opencv.org/4.13.0/d2/d1a/classcv_1_1aruco_1_1ArucoDetector.html
     cv::aruco::ArucoDetector arucoDetector;
-    std::vector<cv::Point3d> markerObjectPoints;
+// A Board is just "these ids have their corners at these 3D points";
+// matchImagePoints pairs every detected corner with its point on the plate.
+    cv::aruco::Board markerBoard;
+    std::vector<int> layoutIds;
     cv::Matx44d cameraToWorld;
     PoseSmoother smoother;
 
+    static cv::aruco::Board makeBoard(const MarkerLayout& layout, const cv::aruco::Dictionary& dictionary) {
+        return cv::aruco::Board(layout.corners, dictionary, layout.ids);
+    }
+
 public:
+// Filled on every call, for the on-screen status line.
+    int markersUsed = 0;
+    double reprojectionErrorPx = 0.0;
+    bool rejectedForError = false;
+
     ArucoPoseTracker(const cv::Mat& cameraMatrix,
                      const cv::Mat& distortionCoefficients,
+                     const MarkerLayout& layout,
                      const cv::Matx44d& cameraToWorld) :
         cameraMatrix(cameraMatrix.clone()),
         distortionCoefficients(distortionCoefficients.clone()),
-        arucoDictionary(cv::aruco::getPredefinedDictionary(ArucoConfiguration::Dictionary)),
+        arucoDictionary(cv::aruco::getPredefinedDictionary(layout.dictionary)),
         arucoParameters(),
         arucoDetector(arucoDictionary, arucoParameters),
+        markerBoard(makeBoard(layout, arucoDictionary)),
+        layoutIds(layout.ids),
         cameraToWorld(cameraToWorld),
         smoother(OutputConfiguration::SmoothingAlpha)
     {
@@ -635,30 +781,20 @@ public:
 // pixels, which is most of the difference between a steady pose and a jittery one.
         arucoParameters.cornerRefinementMethod = cv::aruco::CORNER_REFINE_SUBPIX;
         arucoDetector = cv::aruco::ArucoDetector(arucoDictionary, arucoParameters);
-
-// Using the half size to place the origin at the center of the marker
-// The quadrants are organized as Second (top-right), First (top-left), Third (bottom-left), Fourth (bottom-right) in the XY plane
-        const double markerHalfSize = ArucoConfiguration::ArucoMarkerSize / 2.0;
-        markerObjectPoints = {
-            cv::Point3d(-markerHalfSize,  markerHalfSize, 0),
-            cv::Point3d( markerHalfSize,  markerHalfSize, 0),
-            cv::Point3d( markerHalfSize, -markerHalfSize, 0),
-            cv::Point3d(-markerHalfSize, -markerHalfSize, 0)
-        };
     }
 
-// Estimates the pose of the Aruco marker in the input image and outputs the 6D pose
-// rejectedCandidates are the detected marker corners that are not the real markers
-// which is useful for debugging and refining detection parameters
+// Estimates the pose of the marker plate in the input image and outputs the 6D pose
     bool estimatePose(cv::Mat& inputImage, Pose6D& outputPose) {
+        markersUsed = 0;
+        reprojectionErrorPx = 0.0;
+        rejectedForError = false;
+
         std::vector<int> markerIds;
         std::vector<std::vector<cv::Point2f>> markerCorners;
-
         std::vector<std::vector<cv::Point2f>> rejectedCandidates;
 
 // Aruco's Detector.detectMarkers searches the image for square candidates, decodes their binary patterns,
 // sees if they match the dictionary, and returns their coordinates, IDs, and an optional vector of discarded candidates
-// https://docs.opencv.org/4.13.0/d2/d1a/classcv_1_1aruco_1_1ArucoDetector.html#a0c1d14251bf1cbb06277f49cfe1c9b61
         arucoDetector.detectMarkers(inputImage, markerCorners, markerIds, rejectedCandidates);
 
         if (markerIds.empty()) {
@@ -666,33 +802,39 @@ public:
             return false;
         }
 
-// Draw detected markers for debbuging purposes
-// https://docs.opencv.org/4.13.0/de/d67/group__objdetect__aruco.html#ga2ad34b0f277edebb6a132d3069ed2909
+// Draw detected markers for debugging purposes
         cv::aruco::drawDetectedMarkers(inputImage, markerCorners, markerIds);
 
-        const auto targetIterator = std::find(markerIds.begin(), markerIds.end(), ArucoConfiguration::ArucoMarkerID);
-        if (targetIterator == markerIds.end()) {
+// Pair each detected corner of a plate marker with its 3D point on the plate.
+// Markers that aren't in the layout are simply skipped.
+        std::vector<cv::Point3f> objectPoints;
+        std::vector<cv::Point2f> imagePoints;
+        markerBoard.matchImagePoints(markerCorners, markerIds, objectPoints, imagePoints);
+
+        if (objectPoints.size() < 4) {
             smoother.reset();
             return false;
         }
 
-        const std::size_t targetIndex = static_cast<std::size_t>(std::distance(markerIds.begin(), targetIterator));
+        for (const int id : layoutIds) {
+            if (std::find(markerIds.begin(), markerIds.end(), id) != markerIds.end()) {
+                ++markersUsed;
+            }
+        }
 
+// The Perspective-n-Point problem: the plate pose that projects these 3D points onto these pixels.
+// IPPE is the exact solution for points on a plane; solvePnPRefineLM then polishes it
+// with a Levenberg-Marquardt pass over all the corners at once.
         cv::Vec3d rotationVector, translationVector;
-
-// The Perspective-n-Point is the problem that arises when trying to determine the pose of a calibrated camera
-// given a set of 3D points and their corresponding 2D projections in the image.
-// OpenCV provides the solvePnP function to solve the Perspective-n-Point problem given the 3D points from the Aruco marker
-// and the camera Calibration parameters
         const bool poseSolved = cv::solvePnP(
-            markerObjectPoints,
-            markerCorners[targetIndex],
+            objectPoints,
+            imagePoints,
             cameraMatrix,
             distortionCoefficients,
             rotationVector,
             translationVector,
             false,
-            cv::SOLVEPNP_IPPE_SQUARE
+            cv::SOLVEPNP_IPPE
         );
 
         if (!poseSolved) {
@@ -700,16 +842,36 @@ public:
             return false;
         }
 
-// drawFramesAxes for debugging visualization
-// https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html#gab3ab7bb2bdfe7d5d9745bb92d13f9564
+        cv::solvePnPRefineLM(objectPoints, imagePoints, cameraMatrix, distortionCoefficients,
+                             rotationVector, translationVector);
+
+// How far the corners land from where the layout says they should be. A big
+// number means the layout doesn't describe the plate the camera is seeing.
+        std::vector<cv::Point2f> projectedPoints;
+        cv::projectPoints(objectPoints, rotationVector, translationVector,
+                          cameraMatrix, distortionCoefficients, projectedPoints);
+        double squaredError = 0.0;
+        for (std::size_t i = 0; i < imagePoints.size(); ++i) {
+            const cv::Point2f difference = projectedPoints[i] - imagePoints[i];
+            squaredError += difference.x * difference.x + difference.y * difference.y;
+        }
+        reprojectionErrorPx = std::sqrt(squaredError / static_cast<double>(imagePoints.size()));
+
+        if (reprojectionErrorPx > ArucoConfiguration::MaxReprojectionErrorPx) {
+            rejectedForError = true;
+            smoother.reset();
+            return false;
+        }
+
+// drawFrameAxes at the plate centre, for debugging visualization
         cv::drawFrameAxes(
             inputImage,
             cameraMatrix,
             distortionCoefficients,
             rotationVector,
             translationVector,
-            ArucoConfiguration::ArucoMarkerSize * 0.75,
-            2
+            150.0f,
+            3
         );
 
         cv::Mat rotationMatrix;
@@ -726,7 +888,7 @@ public:
 // don't shake by a millimetre or two every frame.
         smoother.apply(translationVector, explicitRotationMatrix);
 
-// Camera frame -> TouchDesigner world (Y up, measured from the marker's home spot).
+// Camera frame -> TouchDesigner world (Y up, measured from the plate's home spot).
         const cv::Matx44d worldPose = poseToWorld(explicitRotationMatrix, translationVector, cameraToWorld);
 
         cv::Matx33d worldRotation;
@@ -748,34 +910,49 @@ public:
         return true;
     }
 };
-
 int main(int argc, char* argv[]) {
     try {
-// Both files are written by the Python side:
-//   python -m tracking.calibrate    -> shared/calibration.yml
-//   python -m tracking.set_origin   -> shared/world_origin.yml
-// Paths can also be given on the command line:
-//   KinectReader.exe <calibration.yml> <world_origin.yml>
-        const std::string calibrationFilename = (argc > 1)
-            ? std::string(argv[1])
-            : findSharedFile("calibration.yml");
-
-        if (calibrationFilename.empty()) {
-            std::cerr << "Could not find calibration.yml. Run 'python -m tracking.calibrate' first, "
-                      << "or pass the path as the first argument." << std::endl;
+// Everything the tracker needs to know about the rig comes from the repo:
+//   setup/camera.yml, setup/plate.yml                (hand-edited, in git)
+//   calibration/<camera name>/intrinsics.yml         python -m calibration.camera_lens
+//   calibration/<camera name>/world_origin.yml       python -m calibration.set_origin
+// Run from anywhere inside the repo, or give the repo folder as the only argument:
+//   KinectReader.exe "C:/path/to/GatorFlow"
+        std::string root = (argc > 1) ? std::string(argv[1]) : findRepoRoot();
+        if (root == "?") {
+            std::cerr << "Could not find setup/camera.yml above this folder. Run from inside the repo, "
+                      << "or pass the repo folder as the first argument." << std::endl;
             return 1;
         }
+        if (!root.empty() && root.back() != '/' && root.back() != '\\') {
+            root += "/";
+        }
 
+        const CameraProfile camera = loadCameraProfile(root + "setup/camera.yml");
+        if (camera.source != "kinect_v2") {
+            std::cerr << "setup/camera.yml says source '" << camera.source << "', but KinectReader only drives "
+                      << "a Kinect v2. Set source: \"kinect_v2\" or use the Python tools for this camera." << std::endl;
+            return 1;
+        }
+        const std::string calibrationFolder = root + "calibration/" + camera.name + "/";
+        std::cout << "Camera '" << camera.name << "', calibration from " << calibrationFolder << std::endl;
+
+        const std::string calibrationFilename = calibrationFolder + "intrinsics.yml";
         const CameraCalibration calibration = loadCameraCalibration(calibrationFilename);
         std::cout << "Loaded calibration from " << calibrationFilename << std::endl;
 
-        const std::string originFilename = (argc > 2)
-            ? std::string(argv[2])
-            : findSharedFile("world_origin.yml");
-        const cv::Matx44d cameraToWorld = loadWorldOrigin(originFilename);
+        const std::string originFilename = calibrationFolder + "world_origin.yml";
+        const cv::Matx44d cameraToWorld = loadWorldOrigin(fileExists(originFilename) ? originFilename : std::string());
+
+// Where the markers sit on the base plate. Kept in git, shared with Python.
+        const std::string layoutFilename = root + "setup/plate.yml";
+        const MarkerLayout markerLayout = loadMarkerLayout(layoutFilename);
+        std::cout << "Loaded marker layout from " << layoutFilename << ": " << markerLayout.ids.size()
+                  << " markers of " << markerLayout.markerSizeMm << " mm, " << markerLayout.dictionaryName << std::endl;
 
 // Initialize the Kinect color reader and the UDP sender
         KinectColorReader kinect;
+        kinect.mirrorColorFrame = camera.mirrored;
 
         if (!kinect.open()) {
             std::cerr << "Failed to open Kinect." << std::endl;
@@ -796,7 +973,7 @@ int main(int argc, char* argv[]) {
 
 // Initialize the Aruco pose tracker with the camera calibration parameters
 // cv::namedWindow is a function provided by OpenCV to create a window for displaying images on the screen
-        ArucoPoseTracker tracker(calibration.cameraMatrix, calibration.distortionCoefficients, cameraToWorld);
+        ArucoPoseTracker tracker(calibration.cameraMatrix, calibration.distortionCoefficients, markerLayout, cameraToWorld);
 
         cv::namedWindow("Kinect Color Reader", cv::WINDOW_NORMAL);
 
@@ -832,10 +1009,25 @@ int main(int argc, char* argv[]) {
                          << "Translation (mm): [" << pose.translationX << ", " << pose.translationY << ", " << pose.translationZ << "] "
                          << "Rotation (deg): [" << pose.rotationX << ", " << pose.rotationY << ", " << pose.rotationZ << "]";
                 cv::putText(frame, poseText.str(), cv::Point(30, 50), cv::FONT_HERSHEY_SIMPLEX, 0.8, cv::Scalar(0, 255, 0), 2, cv::LINE_AA);
+
+                std::ostringstream plateText;
+                plateText << std::fixed << std::setprecision(2)
+                          << "Markers " << tracker.markersUsed << "/" << markerLayout.ids.size()
+                          << "   fit error " << tracker.reprojectionErrorPx << " px";
+                const bool fullPlate = tracker.markersUsed == static_cast<int>(markerLayout.ids.size());
+                cv::putText(frame, plateText.str(), cv::Point(30, 90), cv::FONT_HERSHEY_SIMPLEX, 0.8,
+                            fullPlate ? cv::Scalar(0, 255, 0) : cv::Scalar(0, 200, 255), 2, cv::LINE_AA);
             }
 
             else {
-                cv::putText(frame, "Aruco marker not detected", cv::Point(30, 50), cv::FONT_HERSHEY_SIMPLEX, 0.8, cv::Scalar(0, 0, 255), 2, cv::LINE_AA);
+                std::ostringstream lostText;
+                if (tracker.rejectedForError) {
+                    lostText << std::fixed << std::setprecision(1) << "Pose rejected: fit error "
+                             << tracker.reprojectionErrorPx << " px - check setup/plate.yml";
+                } else {
+                    lostText << "Marker plate not detected";
+                }
+                cv::putText(frame, lostText.str(), cv::Point(30, 50), cv::FONT_HERSHEY_SIMPLEX, 0.8, cv::Scalar(0, 0, 255), 2, cv::LINE_AA);
             }
 
             cv::imshow("Kinect Color Reader", frame);

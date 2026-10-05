@@ -1,6 +1,6 @@
 '''patch_pykinect2.py: make pykinect2 importable on a modern Python.
 
-Run: python -m tracking.patch_pykinect2
+Run: python -m common.patch_pykinect2
 Changes: the installed pykinect2 package (keeps .backup copies)
 
 Only needed because Python still reads the Kinect during calibration.
@@ -67,7 +67,7 @@ def main():
 
     if total:
         print(f"\nPatched {folder}. Backups are next to the originals.")
-        print("Now try: python -m tracking.track")
+        print("Now try: python -m checks.live_view")
     else:
         print("\nNothing left to patch. If it still fails, the error is something else - send it over.")
 

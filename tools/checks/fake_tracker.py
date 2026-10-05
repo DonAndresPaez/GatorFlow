@@ -1,12 +1,12 @@
 '''fake_tracker.py: send made-up poses so the rest of the pipeline can be tested.
 
-Run: python -m tracking.fake_tracker          (model spins slowly in place)
-     python -m tracking.fake_tracker --still  (model holds at the origin)
+Run: python -m checks.fake_tracker          (model spins slowly in place)
+     python -m checks.fake_tracker --still  (model holds at the origin)
 
 Sends the same OSC message as KinectReader, to the same two ports, so
 TouchDesigner and the simulation cannot tell the difference. Luke, Ana, you can use this to test your stuff without a Kinect.
 
-Btw, this file uses the config.py constants, so if you change the ports or the OSC address, change them there too (and let me know :) ).
+Btw, this file uses the common/config.py constants, so if you change the ports or the OSC address, change them there too (and let me know :) ).
 '''
 
 import argparse
@@ -14,7 +14,7 @@ import time
 
 from pythonosc.udp_client import SimpleUDPClient
 
-import config
+from common import config
 
 
 def main():

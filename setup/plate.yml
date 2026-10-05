@@ -1,0 +1,42 @@
+%YAML:1.0
+---
+# plate.yml: the ArUco marker plate the model sits on.
+#
+# EDIT THIS WHEN: you print markers at a new size, use a different dictionary,
+# move/re-stick a marker, or build a new plate.
+# THEN RUN:  python -m calibration.make_markers   (only if size or dictionary changed, then print)
+#            python -m checks.live_view           (fit error should be under ~1 px)
+#            python -m calibration.set_origin
+#
+# Read by tools/ (Python) and KinectReader (C++), so both always agree.
+#
+# Plate frame (the pose the tracker reports is this frame's origin):
+#   origin = centre of the plate's top surface (the model's mount point)
+#   X = toward the plate's right edge, Y = toward its far ("top") edge,
+#   Z = up out of the plate. Units: mm.
+#
+# Stick each marker flat, printed side up, with the TOP edge of the print (the
+# edge opposite its "bottom edge" label) facing +Y. If one ends up turned, put
+# its turn in rotationDeg (counter-clockwise seen from above) instead of
+# re-sticking it.
+#
+#   [0] top-left    (-x, +y)      [1] top-right    (+x, +y)
+#   [3] bottom-left (-x, -y)      [2] bottom-right (+x, -y)
+#
+# Smaller markers: keep them near the plate's corners. Rotation accuracy comes
+# from how far apart the markers are, not how big each one is.
+
+# Any cv2.aruco DICT_* name. 4x4 has the biggest bits, so it reads best when small.
+dictionary: "DICT_4X4_50"
+
+# The black square as MEASURED after printing (printers lie about scale).
+# This number is the ruler for every distance the tracker reports.
+markerSizeMm: 119.4
+
+# Centre of each black square, measured from the plate centre.
+# Add or remove lines to use more or fewer markers.
+markers:
+   - { id: 0, xMm: -216., yMm:  96., rotationDeg: 0. }
+   - { id: 1, xMm:  215., yMm: 100., rotationDeg: 0. }
+   - { id: 2, xMm:  216., yMm: -80., rotationDeg: 0. }
+   - { id: 3, xMm: -215., yMm: -86., rotationDeg: 0. }

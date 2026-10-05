@@ -15,18 +15,16 @@ KinectReader/out/
 *.sln
 *.vcxproj*
 
-# Machine-specific calibration: belongs to one camera in one mounting
-shared/calibration.yml
-shared/world_origin.yml
-Python/tracking/world_origin.json
-Python/tracking/camera.json.backup
+# Generated calibration: belongs to one camera in one mounting (see calibration/README.md)
+calibration/*/
 
 # TouchDesigner backups
 touchdesigner/Backup/
 *.[0-9]*.toe
 CrashAutoSave*
 
-# Printables and outputs
+# Printables, snapshots and other generated images
+tools/output/
 *.png
 !docs/*.png
 

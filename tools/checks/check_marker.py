@@ -1,7 +1,7 @@
 '''check_marker.py: this works out why the marker is not being detected.
 
-Run: python -m tracking.check_marker
-Makes: check_frame.png and check_frame_annotated.png
+Run: python -m checks.check_marker
+Makes: tools/output/check_frame.png and check_frame_annotated.png
 
 Grabs one frame and reports how bright it is, how sharp it is, how many square
 shapes the detector considered, and what it decodes in every ArUco dictionary,
@@ -17,8 +17,9 @@ Mostly used for debugging, but it is also a good check that the camera is workin
 import cv2
 import numpy as np
 
-from tracking.camera import open_camera
-from tracking.marker import ARUCO_DICT, MARKER_ID
+from common import paths
+from common.camera import open_camera
+from common.plate import LAYOUT, MARKER_IDS
 
 WARMUP_FRAMES = 15  # let auto-exposure settle
 
@@ -41,10 +42,11 @@ def main():
     frame = grab_frame()
     if frame is None:
         print("No frame from the camera at all. If this is the Kinect: close any other")
-        print("program using it (another track.py window?), unplug and replug it, and retry.")
+        print("program using it (KinectReader.exe?), unplug and replug it, and retry.")
+        print("If it's a webcam: try another index in setup/camera.yml.")
         return
 
-    cv2.imwrite("check_frame.png", frame)
+    cv2.imwrite(str(paths.output_file("check_frame.png")), frame)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     height, width = gray.shape
 
@@ -56,7 +58,7 @@ def main():
 
     params = cv2.aruco.DetectorParameters()
     params.cornerRefinementMethod = cv2.aruco.CORNER_REFINE_SUBPIX
-    ours = cv2.aruco.ArucoDetector(cv2.aruco.getPredefinedDictionary(ARUCO_DICT), params)
+    ours = cv2.aruco.ArucoDetector(LAYOUT.dictionary, params)
     corners, ids, rejected = ours.detectMarkers(gray)
     print(f"square candidates the detector looked at: {len(rejected)}"
           f"   (0 means it isn't seeing the marker's outline at all)")
@@ -66,7 +68,7 @@ def main():
         for c, i in zip(corners, ids.ravel()):
             pts = c.reshape(4, 2)
             size = max(np.linalg.norm(pts[0] - pts[1]), np.linalg.norm(pts[1] - pts[2]))
-            note = "  <- the one track.py wants" if i == MARKER_ID else ""
+            note = "  <- one of the plate markers" if i in MARKER_IDS else ""
             print(f"  id {i}: {size:.0f} px across{note}")
         cv2.aruco.drawDetectedMarkers(frame, corners, ids)
     else:
@@ -82,8 +84,8 @@ def main():
         if not any_hit:
             print("  nothing in any dictionary - it's an image problem, not a dictionary problem")
 
-    cv2.imwrite("check_frame_annotated.png", frame)
-    print("\nSaved check_frame.png and check_frame_annotated.png")
+    cv2.imwrite(str(paths.output_file("check_frame_annotated.png")), frame)
+    print(f"\nSaved check_frame.png and check_frame_annotated.png in {paths.OUTPUT_DIR}")
 
 
 if __name__ == "__main__":

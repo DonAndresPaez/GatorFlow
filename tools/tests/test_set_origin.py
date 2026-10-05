@@ -12,8 +12,8 @@ import numpy as np
 import pytest
 from scipy.spatial.transform import Rotation
 
-from tracking.set_origin import average_pose, camera_to_world_from_home
-from tracking.marker import pose_to_td
+from calibration.set_origin import average_pose, camera_to_world_from_home
+from common.plate import pose_to_td
 
 
 def test_home_pose_becomes_all_zeros():

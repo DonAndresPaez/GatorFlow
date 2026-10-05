@@ -1,0 +1,9 @@
+{
+  "_help": "The projector. lens: fixed by the hardware, never a calibration knob. cam1: where TouchDesigner's cam1 ended up after static calibration (TouchDesigner units, as shown on cam1's Xform page). After moving the projector, recalibrate cam1 with the sliders in TouchDesigner, then save with op('load_setup').module.save_projector(). Leave cam1 as null to keep whatever the .toe has.",
+  "name": "LG PA75U",
+  "lens": {
+    "throwRatio": 1.4,
+    "horizontalFovDeg": 39.3
+  },
+  "cam1": null
+}

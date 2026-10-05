@@ -1,7 +1,7 @@
 '''monitor.py: this watches the poses arriving over OSC.
 
-Run: python -m tracking.monitor              (listens on 9001)
-     python -m tracking.monitor --port 9000  (only if TouchDesigner is closed)
+Run: python -m checks.monitor              (listens on 9001)
+     python -m checks.monitor --port 9000  (only if TouchDesigner is closed)
 
 Prints position, rotation and the message rate a couple of times a second.
 This is how you prove the tracker works before blaming TouchDesigner, and the
@@ -16,7 +16,7 @@ import time
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import BlockingOSCUDPServer
 
-import config
+from common import config
 
 count = 0
 last_print = time.time()

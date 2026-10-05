@@ -1,0 +1,38 @@
+%YAML:1.0
+---
+# camera.yml: which camera watches the plate.
+#
+# EDIT THIS WHEN: you swap the camera or change its resolution.
+# THEN RUN:  python -m checks.status        (says what is missing for this camera)
+#            python -m calibration.camera_lens   (once per camera + resolution)
+#            python -m calibration.set_origin    (every time the camera moves)
+#
+# Moving the SAME camera does not need an edit here: just rerun set_origin.
+#
+# Read by tools/ (Python) and KinectReader (C++).
+
+# Names the folder calibration/<name>/ that holds this camera's lens and origin
+# files. Give each physical camera its own name, so switching back to one keeps
+# its calibration. Letters, digits, - and _ only.
+name: "kinect_v2"
+
+# "kinect_v2" = Kinect for Xbox One through the Kinect SDK (KinectReader.exe and pykinect2)
+# "webcam"    = any USB/UVC camera through OpenCV (Python tools only for now)
+source: "kinect_v2"
+
+# 1 if the camera delivers a mirror image (the Kinect v2 does). If this is
+# wrong, markers decode as different ids and nothing is detected.
+mirrored: 1
+
+# ---- webcam only (ignored for the Kinect, which is always 1920x1080) ----
+# Which camera OpenCV opens (0 = first). python -m checks.check_marker helps.
+index: 0
+# Ask for this resolution. A 4K webcam usually needs mjpg: 1 to reach 30 fps.
+width: 3840
+height: 2160
+fps: 30
+mjpg: 1
+# Keep autofocus OFF: refocusing changes the lens numbers and silently breaks
+# the calibration. focus: -1 leaves the camera's manual focus as it is.
+autofocus: 0
+focus: -1

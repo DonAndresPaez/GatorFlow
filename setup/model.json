@@ -1,0 +1,4 @@
+{
+  "_help": "Which model sits on the plate right now. Each model has its own folder models/<name>/ with the STL and a model.json describing it. To swap models, change 'active' and reload in TouchDesigner. See models/README.md.",
+  "active": "PMB-1A"
+}
