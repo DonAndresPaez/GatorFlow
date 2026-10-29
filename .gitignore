@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Generated calibration: belongs to one camera in one mounting (see calibration/README.md)
+calibration/*/
+
+# TouchDesigner backups
+touchdesigner/Backup/
+*.[0-9]*.toe
+CrashAutoSave*
+
+# Printables, snapshots and other generated images
+tools/output/
+*.png
+!docs/*.png
+
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

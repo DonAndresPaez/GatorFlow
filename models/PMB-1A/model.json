@@ -1,0 +1,10 @@
+{
+  "_help": "Describes this model. stl is relative to this folder. mountOffsetMm / mountRotationDeg say where the STL's origin sits in the PLATE frame (origin = centre of the plate top, X right, Y far edge, Z up), so they are zero when the model is centred on the plate and its STL origin is the centre of its base.",
+  "name": "PMB-1A",
+  "stl": "PMB-1A.stl",
+  "stlUnits": "mm",
+  "sizeMm": [300, 300, 58],
+  "mountOffsetMm": [0, 0, 0],
+  "mountRotationDeg": 0,
+  "notes": "3D-printed practice piece with an irregular surface. Z up, origin at the centre of its base."
+}
