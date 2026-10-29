@@ -7,7 +7,7 @@ Grabs one frame and reports how bright it is, how sharp it is, how many square
 shapes the detector considered, and what it decodes in every ArUco dictionary,
 not just ours. The saved images are worth looking at, or sending to someone.
 
-This is what found the Kinect mirroring: a mirrored DICT_4X4_50 id 0 decodes
+A mirrored image shows up here too: a mirrored DICT_4X4_50 id 0 decodes
 as DICT_4X4_1000 id 871, so a decode in the wrong dictionary means the image
 is flipped, not that the marker is wrong.
 
@@ -27,7 +27,7 @@ WARMUP_FRAMES = 15  # let auto-exposure settle
 def grab_frame():
     camera = open_camera()
     frame, kept = None, 0
-    for _ in range(2000):  # the Kinect returns None between frames
+    for _ in range(2000):  # read() can return None between frames
         got = camera.read()
         if got is None:
             continue
@@ -41,9 +41,9 @@ def grab_frame():
 def main():
     frame = grab_frame()
     if frame is None:
-        print("No frame from the camera at all. If this is the Kinect: close any other")
-        print("program using it (KinectReader.exe?), unplug and replug it, and retry.")
-        print("If it's a webcam: try another index in setup/camera.yml.")
+        print("No frame from the camera at all. Close any other program using it")
+        print("(the tracker, live_view, Teams, Logi Tune), check it's on a USB 3 port,")
+        print("or try another index in setup/camera.yml.")
         return
 
     cv2.imwrite(str(paths.output_file("check_frame.png")), frame)

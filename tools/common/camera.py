@@ -3,17 +3,12 @@
 Imported by: calibration/*, checks/*
 Run directly: no
 
-Which camera is used, and how, comes from setup/camera.yml. Every source has
-the same two methods, so the callers don't care which is in use: read()
-returns a BGR image or None, release() cleans up.
-
-The Kinect v2 is not a webcam: it speaks its own USB protocol, so OpenCV can
-never open it whatever index you try. Its frames come through the Kinect SDK
-via pykinect2 instead. Any normal USB camera goes through OpenCV.
+Which camera is used, and how, comes from setup/camera.yml. The camera has
+a read() that returns a BGR image or None, and release() to clean up. Any
+USB/UVC camera works, through OpenCV.
 '''
 
 import os
-import time
 from dataclasses import dataclass
 
 import cv2
@@ -25,7 +20,6 @@ from common import paths
 @dataclass
 class CameraProfile:
     name: str
-    source: str          # "kinect_v2" or "webcam"
     mirrored: bool
     index: int = 0
     width: int = 0
@@ -47,7 +41,6 @@ def load_profile(path=paths.CAMERA_FILE):
 
     profile = CameraProfile(
         name=fs.getNode("name").string(),
-        source=fs.getNode("source").string() or "kinect_v2",
         mirrored=bool(number("mirrored", 0)),
         index=int(number("index", 0)),
         width=int(number("width", 0)),
@@ -105,7 +98,7 @@ def check_frame_size(frame, intrinsics):
     return None
 
 
-# ---------------------------------------------------------------- sources
+# ---------------------------------------------------------------- the camera
 
 class Webcam:
     def __init__(self, profile):
@@ -142,63 +135,5 @@ class Webcam:
         self.capture.release()
 
 
-class KinectV2:
-    """Color stream from a Kinect for Xbox One (always 1920x1080).
-
-    Needs: Kinect for Windows SDK 2.0, a USB 3 port, 64-bit Python, and
-        pip install pykinect2 comtypes
-    If importing pykinect2 crashes on an assert, run:
-        python -m common.patch_pykinect2
-    """
-
-    def __init__(self, profile):
-        try:
-            from pykinect2 import PyKinectRuntime, PyKinectV2
-        except AssertionError as error:
-            raise RuntimeError("pykinect2 needs patching for this Python. "
-                               "Run: python -m common.patch_pykinect2") from error
-        except ImportError as error:
-            if "Wrong version" in str(error) or "_check_version" in str(error):
-                raise RuntimeError("pykinect2 clashes with this comtypes version. "
-                                   "Run: python -m common.patch_pykinect2") from error
-            raise RuntimeError("pykinect2 is not installed. Run: pip install pykinect2 comtypes") from error
-
-        self.mirrored = profile.mirrored
-        self.kinect = PyKinectRuntime.PyKinectRuntime(PyKinectV2.FrameSourceTypes_Color)
-        self.width = self.kinect.color_frame_desc.Width      # 1920
-        self.height = self.kinect.color_frame_desc.Height    # 1080
-
-        # The sensor can take a while to start streaming, especially right after
-        # another program let go of it. Wait, but don't give up: read() returns
-        # None until frames arrive, and every script here copes with that.
-        for attempt in range(300):  # up to 15 s
-            if self.kinect.has_new_color_frame():
-                print(f"Kinect streaming after {attempt * 0.05:.1f}s")
-                return
-            time.sleep(0.05)
-        print("WARNING: Kinect opened but hasn't sent a frame in 15 s. Carrying on anyway.")
-        print("  If nothing appears: check the power brick, use a USB 3 port, close other")
-        print("  programs using the sensor (KinectReader.exe?), and confirm Kinect Studio sees it.")
-
-    def read(self):
-        if not self.kinect.has_new_color_frame():
-            time.sleep(0.005)
-            return None
-        bgra = self.kinect.get_last_color_frame().reshape((self.height, self.width, 4)).astype(np.uint8)
-        frame = cv2.cvtColor(bgra, cv2.COLOR_BGRA2BGR)
-        # The Kinect hands over its color frame mirrored. ArUco reads a mirrored
-        # marker as a different code entirely, and solvePnP would return a
-        # left-handed pose, so the picture gets flipped back here.
-        return cv2.flip(frame, 1) if self.mirrored else frame
-
-    def release(self):
-        self.kinect.close()
-
-
 def open_camera(profile=None):
-    profile = profile or PROFILE
-    if profile.source == "kinect_v2":
-        return KinectV2(profile)
-    if profile.source == "webcam":
-        return Webcam(profile)
-    raise ValueError(f"setup/camera.yml: unknown source '{profile.source}' (use kinect_v2 or webcam)")
+    return Webcam(profile or PROFILE)

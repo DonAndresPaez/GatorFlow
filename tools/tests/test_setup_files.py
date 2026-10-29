@@ -18,7 +18,7 @@ from common.plate import load_layout
 def test_camera_profile_loads():
     profile = load_profile()
     assert profile.name
-    assert profile.source in ("kinect_v2", "webcam")
+    assert profile.width and profile.height
 
 
 def test_plate_loads_and_markers_do_not_overlap():

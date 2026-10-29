@@ -1,52 +1,51 @@
 # setup/
 
-**The physical rig, described in four files.** These are the only files you edit by hand when something on the table changes. They are in git, so the whole team (and every program) sees the same rig.
+The physical rig, described in four files. These are the only files you edit by hand when something on the table changes.
 
 | File | Describes | Read by |
 |---|---|---|
-| `camera.yml` | which camera is used, its resolution, whether it's mirrored | Python tools, KinectReader |
-| `plate.yml` | the ArUco plate: dictionary, marker size, where each marker is stuck | Python tools, KinectReader |
-| `projector.json` | the projector lens (fixed) and where `cam1` was calibrated to | TouchDesigner |
-| `model.json` | which model in `models/` is on the plate | TouchDesigner, simulation |
+| `camera.yml` | Which camera, its resolution and focus | Python tools |
+| `plate.yml` | Marker dictionary, size and where each marker is stuck | Python tools |
+| `projector.json` | The projector lens and the calibrated position of `cam1` | TouchDesigner |
+| `model.json` | Which model in `models/` is on the plate | TouchDesigner, simulation |
 
-The `.yml` files are in OpenCV's YAML flavour because the C++ tracker reads them with `cv::FileStorage`. The `.json` files are read by TouchDesigner, which reads JSON without extra packages.
-
-What gets **generated** from these (lens numbers, world origin) lives in `calibration/<camera name>/`, not here.
+Calibration generated from these lives in `calibration/<camera name>/`.
 
 ## What to do when something changes
 
-Run everything from `tools/`. `python -m checks.status` tells you what is missing or out of date at any point.
+Run commands from `tools/` as `python -m <command>`. `checks.status` shows what is out of date at any point.
 
-### The camera moved (same camera)
-1. `python -m calibration.set_origin` with the plate on its home spot.
+| Change | Steps |
+|---|---|
+| Camera moved | `calibration.set_origin` (plate on its home spot, all markers visible) |
+| Focus or resolution changed | [Calibrate the lens](#calibrating-the-lens), then `calibration.set_origin` |
+| Different camera | New `name`, `index`, `width`, `height` in `camera.yml`; check it with `checks.live_view`; [calibrate the lens](#calibrating-the-lens); `calibration.set_origin` |
+| New marker size or dictionary | See [New markers](#new-markers) |
+| A marker was re-stuck | `checks.plate_fit --write`, then `calibration.set_origin` |
+| Projector moved | Recalibrate `cam1` in TouchDesigner and save it (see `touchdesigner/README.md`) |
+| Different projector | See [Different projector](#different-projector) |
+| Different 3D model | See `models/README.md`. No recalibration needed. |
 
-Nothing to edit. The lens numbers survive a move.
+Each camera keeps its own folder in `calibration/`, so switching back to one is just changing `name` back.
 
-### A different camera (e.g. the 4K webcam)
-1. In `camera.yml`: a new `name` (e.g. `webcam_4k`), `source: "webcam"`, its `index`, `width`, `height`, `mirrored: 0`, `autofocus: 0`.
-2. `python -m checks.live_view` to see that it opens at the right resolution.
-3. `python -m calibration.camera_lens` → `calibration/webcam_4k/intrinsics.yml`
-4. `python -m calibration.set_origin` → `calibration/webcam_4k/world_origin.yml`
+## Calibrating the lens
 
-The Kinect's files stay in `calibration/kinect_v2/`, so switching back is just changing `name` and `source` back.
-Note: `KinectReader.exe` only drives a Kinect. A webcam works with the Python tools; live tracking from a webcam needs a Python (or C++ OpenCV) tracking loop.
+1. Print the checkerboard (`calibration.make_checkerboard`) and measure one square.
+2. Run `calibration.camera_lens`. Press `s` to open the camera settings and focus on the table.
+3. Hold the board in view and press SPACE when the corners light up. Take 20–30 shots: near and far, tilted up to ~45°, covering every part of the image (especially corners and edges). Press `q` when done.
+4. Copy the focus value it prints into `focus:` in `camera.yml` and keep `autofocus: 0`.
 
-### Same camera, new resolution
-Treat it as a new lens: `python -m calibration.camera_lens`, then `set_origin`. The tools warn when the frames don't match the calibration's resolution.
+A reprojection error under 0.5 px is good; over 1.0, retake.
 
-### New marker size (or dictionary)
-1. In `plate.yml`: `markerSizeMm` (and `dictionary`) to what you want.
-2. `python -m calibration.make_markers` → print from `tools/output/` at 100% scale.
-3. Measure the printed black square, put the **measured** size in `markerSizeMm`.
-4. Stick them on, measure each centre from the plate centre, update `markers:`.
-5. `python -m checks.live_view`: fit error under ~1 px means the numbers are right.
-6. `python -m calibration.set_origin`
+## New markers
 
-### A marker moved or was re-stuck
-Steps 4–6 above.
+1. Set `markerSizeMm` (and `dictionary`) in `plate.yml`.
+2. `calibration.make_markers`, then print from `tools/output/` at 100% scale.
+3. Measure the printed black square and put the **measured** size in `markerSizeMm`.
+4. Stick the markers outside the model's footprint, roughly measure each centre from the plate centre, and update `markers:`.
+5. `checks.plate_fit --write` refines the positions with the camera. Aim for under ~1 mm per marker.
+6. `calibration.set_origin`
 
-### The projector moved
-Recalibrate `cam1` in TouchDesigner, then save it into `projector.json` (see `touchdesigner/README.md`). The FOV never changes unless the projector itself does.
+## Different projector
 
-### A different 3D model
-See `models/README.md`. The plate and markers don't change, so nothing needs recalibrating.
+Update `name`, `throwRatio` and `horizontalFovDeg` in `projector.json` from the projector's specs. For a fixed lens, horizontal FOV = 2·atan(1 / (2 · throw ratio)). Set `cam1` to `null`, then recalibrate and save as for a moved projector.

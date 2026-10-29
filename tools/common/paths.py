@@ -13,9 +13,6 @@ Run directly: no
         intrinsics.yml      the lens          (python -m calibration.camera_lens)
         world_origin.yml    the camera's spot (python -m calibration.set_origin)
     tools/output/           printables and snapshots (not in git)
-
-KinectReader (C++) finds the same files by walking up to the folder that
-contains setup/camera.yml, so both sides agree without passing paths around.
 '''
 
 import json

@@ -1,11 +1,11 @@
 '''set_origin.py: tell the tracker where the world's origin is.
 
 Run: python -m calibration.set_origin         (from tools/)
-Makes: calibration/<camera name>/world_origin.yml  (read by KinectReader too)
+Makes: calibration/<camera name>/world_origin.yml
 Needs: a calibrated camera, and the marker plate sitting still on its home spot
 
 Without this, poses are measured from the camera, so the model reads as "1.9 m
-away and tilted" because that is how the Kinect hangs. This watches the plate
+away and tilted" because that is how the camera hangs. This watches the plate
 at its home spot for a few seconds and saves the matrix that makes that spot
 read as zero. Afterwards the tracker reports where the plate (and the model
 sitting on it) is relative to home, which is what TouchDesigner wants.
@@ -56,6 +56,9 @@ def main():
     size_checked = False
     print(f"Plate on the home spot, all {need} markers visible, nothing moving. Collecting {FRAMES} readings...")
 
+    # Show the frame shrunk to fit the screen: a 4K frame at 1:1 only shows its corner.
+    cv2.namedWindow("set origin", cv2.WINDOW_NORMAL)
+    cv2.resizeWindow("set origin", 1280, 720)
     poses, errors = [], []
     while len(poses) < FRAMES:
         frame = camera.read()
@@ -73,16 +76,17 @@ def main():
         if pose and len(pose.marker_ids) == need:
             poses.append((pose.R, pose.t))
             errors.append(pose.error_px)
-            cv2.drawFrameAxes(frame, tracker.K, tracker.dist, pose.rvec, pose.tvec, 150, 3)
+            cv2.drawFrameAxes(frame, tracker.K, tracker.dist, pose.rvec, pose.tvec, 150, max(3, frame.shape[1] // 640))
             status, color = f"{len(poses)}/{FRAMES}", (0, 255, 0)
         elif pose:
             status, color = f"{len(poses)}/{FRAMES}  waiting: sees {pose.marker_ids}, needs all {need}", (0, 200, 255)
         elif tracker.last_error_px:
-            status, color = f"{len(poses)}/{FRAMES}  rejected: fit error {tracker.last_error_px:.1f} px (check setup/plate.yml)", (0, 0, 255)
+            status, color = f"{len(poses)}/{FRAMES}  rejected: fit error {tracker.last_error_px:.1f} px > {tracker.max_error_px:.1f} (check setup/plate.yml)", (0, 0, 255)
         else:
             status, color = f"{len(poses)}/{FRAMES}  plate not seen", (0, 0, 255)
-        cv2.putText(frame, status, (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.1, (0, 0, 0), 5)
-        cv2.putText(frame, status, (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.1, color, 2)
+        s = max(1.0, frame.shape[1] / 1920)  # text stays readable when a 4K frame is shown shrunk
+        cv2.putText(frame, status, (int(20 * s), int(40 * s)), cv2.FONT_HERSHEY_SIMPLEX, 1.1 * s, (0, 0, 0), int(5 * s))
+        cv2.putText(frame, status, (int(20 * s), int(40 * s)), cv2.FONT_HERSHEY_SIMPLEX, 1.1 * s, color, int(2 * s))
         cv2.imshow("set origin", frame)
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
@@ -97,7 +101,8 @@ def main():
     spread = np.std([p for _, p in poses], axis=0)
     print(f"Distance from camera to plate centre: {np.linalg.norm(t):.0f} mm")
     print(f"Noise while still (std dev): {spread.round(2)} mm  <- over ~1 mm means glare, blur, or a bent plate")
-    print(f"Fit error: {np.mean(errors):.2f} px average  <- over ~1 px means the layout numbers are off")
+    fit_mm = np.mean(errors) * np.linalg.norm(t) / tracker.K[0, 0]
+    print(f"Fit error: {np.mean(errors):.2f} px average (~{fit_mm:.1f} mm at the plate)  <- over ~2 mm means the layout numbers are off")
 
     camera_to_world = camera_to_world_from_home(R, t)
     path = paths.origin_file()
@@ -105,7 +110,7 @@ def main():
     fs = cv2.FileStorage(str(path), cv2.FILE_STORAGE_WRITE)
     fs.write("cameraToWorld", camera_to_world)
     fs.release()
-    print(f"Wrote {path.relative_to(paths.REPO)}  (read by KinectReader)")
+    print(f"Wrote {path.relative_to(paths.REPO)}")
     print("Check (should be six zeros):", [round(v, 2) for v in pose_to_td(R, t, camera_to_world)])
 
 

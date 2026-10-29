@@ -1,13 +1,12 @@
 '''config.py: the network settings everything has to agree on.
 
 Imported by: checks/monitor.py, checks/fake_tracker.py, common/plate.py
-Mirrored in: KinectReader/src/main.cpp (OutputConfiguration namespace)
-            and docs/osc_interface.md
+Documented in: README.md ("The pose message")
 
 Ports, the OSC address, and the rotation order. These describe the software,
 not the rig, so they live here and not in setup/. If something here changes,
-change it in main.cpp and docs/osc_interface.md too, or the tracker and
-TouchDesigner stop agreeing on what a message means.
+update README.md too and tell whoever owns TouchDesigner and the simulation,
+or they stop agreeing with the tracker on what a message means.
 '''
 
 # ---- Tracking -> TouchDesigner (OSC over UDP) ----

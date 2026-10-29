@@ -3,8 +3,8 @@
 Run: python -m checks.fake_tracker          (model spins slowly in place)
      python -m checks.fake_tracker --still  (model holds at the origin)
 
-Sends the same OSC message as KinectReader, to the same two ports, so
-TouchDesigner and the simulation cannot tell the difference. Luke, Ana, you can use this to test your stuff without a Kinect.
+Sends the same OSC message as tracking.tracker, to the same two ports, so
+TouchDesigner and the simulation cannot tell the difference. Luke, Ana, you can use this to test your stuff without the camera.
 
 Btw, this file uses the common/config.py constants, so if you change the ports or the OSC address, change them there too (and let me know :) ).
 '''

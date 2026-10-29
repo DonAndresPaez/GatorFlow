@@ -5,16 +5,6 @@ __pycache__/
 venv/
 .pytest_cache/
 
-# C++ build output: generated, machine-specific, and big
-KinectReader/build/
-KinectReader/out/
-*.exe
-*.pdb
-*.ilk
-*.obj
-*.sln
-*.vcxproj*
-
 # Generated calibration: belongs to one camera in one mounting (see calibration/README.md)
 calibration/*/
 

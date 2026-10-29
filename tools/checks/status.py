@@ -31,11 +31,10 @@ def rel(path):
 
 def main():
     print(f"\nCAMERA   {rel(paths.CAMERA_FILE)}")
-    print(f"  {PROFILE.name}  ({PROFILE.source}{', mirrored' if PROFILE.mirrored else ''})")
-    if PROFILE.source == "webcam":
-        print(f"  index {PROFILE.index}, asks for {PROFILE.width}x{PROFILE.height} @ {PROFILE.fps} fps,"
-              f" autofocus {'ON (turn it off)' if PROFILE.autofocus else 'off'}")
-        print("  note: KinectReader.exe only drives a Kinect; a webcam works with the Python tools")
+    print(f"  {PROFILE.name}{'  (mirrored)' if PROFILE.mirrored else ''}")
+    print(f"  index {PROFILE.index}, asks for {PROFILE.width}x{PROFILE.height} @ {PROFILE.fps} fps,"
+          f" autofocus {'ON (turn it off)' if PROFILE.autofocus else 'off'}")
+    print("  live tracking: python -m tracking.tracker")
 
     intrinsics_path, origin_path = paths.intrinsics_file(), paths.origin_file()
     lens = None
@@ -45,7 +44,7 @@ def main():
         print(f"  {lens.image_size[0]}x{lens.image_size[1]}, error {lens.error_px:.2f} px, from {when(intrinsics_path)}")
         if lens.error_px > 1.0:
             todo.append("lens error over 1 px: python -m calibration.camera_lens (retake the shots)")
-        if PROFILE.source == "webcam" and PROFILE.width and (PROFILE.width, PROFILE.height) != tuple(lens.image_size):
+        if PROFILE.width and (PROFILE.width, PROFILE.height) != tuple(lens.image_size):
             todo.append(f"camera.yml asks for {PROFILE.width}x{PROFILE.height} but the lens was calibrated at "
                         f"{lens.image_size[0]}x{lens.image_size[1]}: python -m calibration.camera_lens")
     else:

@@ -4,9 +4,8 @@ Run: pytest
 
 Makes fake detections by projecting the layout's corners through a known
 camera and a known plate pose, then checks MarkerTracker.solve() gets that
-pose back. No Kinect needed. KinectReader does the same solve in C++, so if
-these pass and the lab numbers are still wrong, look at setup/plate.yml or
-the calibration, not the maths.
+pose back. No camera needed. If these pass and the lab numbers are still
+wrong, look at setup/plate.yml or the calibration, not the maths.
 '''
 
 import cv2
@@ -21,7 +20,7 @@ DIST = np.zeros(5)
 
 
 def plate_seen_from_above(tilt_deg=(5, -3, 20), height_mm=1900.0):
-    """Plate lying on the table, Kinect looking down at it, slightly off-square."""
+    """Plate lying on the table, camera looking down at it, slightly off-square."""
     R = (Rotation.from_euler("x", 180, degrees=True)
          * Rotation.from_euler("xyz", tilt_deg, degrees=True)).as_matrix()
     return R, np.array([30.0, -40.0, height_mm])

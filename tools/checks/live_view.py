@@ -12,11 +12,11 @@ its centre, and on screen:
   - average marker size in pixels, and distance to the plate centre
   - the pose relative to the home spot, if set_origin has been run
 
-It sends no OSC. The live tracker is KinectReader; this only answers "does the
+It sends no OSC. The live tracker is tracking.tracker; this only answers "does the
 camera see the plate, and how well". It uses the same solve as set_origin
 (common/plate.py), so what it shows is what the origin capture would see.
 
-Close KinectReader first if the feed stays black.
+Close the tracker first if the feed stays black: only one program can hold the camera.
 '''
 
 import time
@@ -43,16 +43,17 @@ def mean_marker_pixels(corners, ids):
 
 
 def put(frame, text, row, color=(255, 255, 255)):
-    y = 40 + row * 38
-    cv2.putText(frame, text, (20, y), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 0), 5, cv2.LINE_AA)
-    cv2.putText(frame, text, (20, y), cv2.FONT_HERSHEY_SIMPLEX, 1.0, color, 2, cv2.LINE_AA)
+    s = max(1.0, frame.shape[1] / 1920)  # text stays readable when a 4K frame is shown shrunk
+    y = int((40 + row * 38) * s)
+    cv2.putText(frame, text, (int(20 * s), y), cv2.FONT_HERSHEY_SIMPLEX, 1.0 * s, (0, 0, 0), int(5 * s), cv2.LINE_AA)
+    cv2.putText(frame, text, (int(20 * s), y), cv2.FONT_HERSHEY_SIMPLEX, 1.0 * s, color, int(2 * s), cv2.LINE_AA)
 
 
 def main():
     lens = load_intrinsics()
     tracker = MarkerTracker(lens.K, lens.dist)
     has_origin = paths.origin_file().exists()
-    print(f"Camera '{PROFILE.name}' ({PROFILE.source}).")
+    print(f"Camera '{PROFILE.name}' (webcam {PROFILE.index}).")
     print(f"Looking for {LAYOUT.dictionary_name}, ids {LAYOUT.ids}, {LAYOUT.size_mm:g} mm, from setup/plate.yml.")
     print("Origin:", "loaded, poses are relative to home" if has_origin else "not set, poses are relative to the camera")
     print("q = quit, s = save snapshot")
@@ -86,7 +87,7 @@ def main():
             cv2.aruco.drawDetectedMarkers(frame, corners, ids)
 
         if pose:
-            cv2.drawFrameAxes(frame, tracker.K, tracker.dist, pose.rvec, pose.tvec, 150, 3)
+            cv2.drawFrameAxes(frame, tracker.K, tracker.dist, pose.rvec, pose.tvec, 150, max(3, frame.shape[1] // 640))
             td = pose_to_td(pose.R, pose.t)
             n = len(pose.marker_ids)
             put(frame, f"LOCK   detected {rate:3.0f}% of recent frames", 0, (0, 255, 0))
@@ -99,7 +100,7 @@ def main():
         else:
             put(frame, f"lost   detected {rate:3.0f}% of recent frames", 0, (0, 0, 255))
             if tracker.last_error_px:
-                put(frame, f"rejected: fit error {tracker.last_error_px:.1f} px > {MAX_REPROJECTION_ERROR_PX:.0f}"
+                put(frame, f"rejected: fit error {tracker.last_error_px:.1f} px > {tracker.max_error_px:.1f}"
                            f"  -> measure setup/plate.yml again", 1, (0, 0, 255))
             elif ids is not None:
                 put(frame, f"seeing ids {np.ravel(ids).tolist()}, none of {LAYOUT.ids}", 1, (0, 200, 255))

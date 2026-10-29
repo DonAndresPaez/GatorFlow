@@ -5,7 +5,7 @@ Imported by: calibration/set_origin.py, calibration/make_markers.py,
 Run directly: no
 
 ArUco markers sit on a base plate under the model. Their size, dictionary and
-positions are in setup/plate.yml, which KinectReader (C++) reads too. Every
+positions are in setup/plate.yml. Every
 visible marker's four corners go into ONE solvePnP, so the pose comes from up
 to 16 points spread across the plate instead of 4 points on one small square:
   - rotation is much steadier (the corners are far apart, a longer lever)
@@ -13,10 +13,7 @@ to 16 points spread across the plate instead of 4 points on one small square:
   - tracking survives a hand covering one or two markers
 
 The pose reported is the PLATE's centre (see setup/plate.yml), not any one
-marker. pose_to_td() then turns it into a TouchDesigner world pose; KinectReader
-does the same in poseToWorld().
-
-Must match main.cpp: MAX_REPROJECTION_ERROR_PX.
+marker. pose_to_td() then turns it into a TouchDesigner world pose.
 '''
 
 from dataclasses import dataclass, field
@@ -31,6 +28,11 @@ from common import config, paths
 # layout says they should be is thrown away: wrong layout numbers, a marker
 # peeling off the plate, or a misdetection.
 MAX_REPROJECTION_ERROR_PX = 3.0
+# That limit is really an angle, written as pixels for a camera with
+# fx ~1060 (a 1080p image): 3 px there is ~5 mm at the plate from 2 m. A sharper
+# camera sees the same millimetres as more pixels, so MarkerTracker scales the
+# pixel limit by its own fx (MarkerTracker.max_error_px).
+REFERENCE_FX = 1060.0
 
 # OpenCV camera axes are X right, Y down, Z forward.
 # TouchDesigner is X right, Y up, Z toward the viewer. This flips Y and Z.
@@ -135,6 +137,7 @@ class MarkerTracker:
         # matchImagePoints pairs each detected corner with its 3D point.
         self.board = cv2.aruco.Board([self.layout.corners(i) for i in range(len(self.layout.ids))],
                                      dictionary, np.array(self.layout.ids, np.int32))
+        self.max_error_px = MAX_REPROJECTION_ERROR_PX * max(1.0, self.K[0, 0] / REFERENCE_FX)
         self.last_error_px = None     # error of the last rejected solve, for display
 
     def detect(self, frame):
@@ -163,7 +166,7 @@ class MarkerTracker:
 
         projected, _ = cv2.projectPoints(obj, rvec, tvec, self.K, self.dist)
         error = float(np.sqrt(np.mean(np.sum((projected.reshape(-1, 2) - img) ** 2, axis=1))))
-        if error > MAX_REPROJECTION_ERROR_PX:
+        if error > self.max_error_px:
             self.last_error_px = error
             return None
 

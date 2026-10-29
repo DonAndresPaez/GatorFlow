@@ -8,8 +8,6 @@
 #            python -m checks.live_view           (fit error should be under ~1 px)
 #            python -m calibration.set_origin
 #
-# Read by tools/ (Python) and KinectReader (C++), so both always agree.
-#
 # Plate frame (the pose the tracker reports is this frame's origin):
 #   origin = centre of the plate's top surface (the model's mount point)
 #   X = toward the plate's right edge, Y = toward its far ("top") edge,
@@ -31,12 +29,14 @@ dictionary: "DICT_4X4_50"
 
 # The black square as MEASURED after printing (printers lie about scale).
 # This number is the ruler for every distance the tracker reports.
-markerSizeMm: 119.4
+markerSizeMm: 48.34
 
-# Centre of each black square, measured from the plate centre.
+# Centre of each black square, measured from the plate centre (2026-10-23):
+# X = +-7.475 in (189.9 mm), Y = +-106 mm. Keep every marker outside the
+# model's footprint (PMB-1A: x and y between -150 and 150 mm).
 # Add or remove lines to use more or fewer markers.
 markers:
-   - { id: 0, xMm: -216., yMm:  96., rotationDeg: 0. }
-   - { id: 1, xMm:  215., yMm: 100., rotationDeg: 0. }
-   - { id: 2, xMm:  216., yMm: -80., rotationDeg: 0. }
-   - { id: 3, xMm: -215., yMm: -86., rotationDeg: 0. }
+   - { id: 0, xMm:  -188.8, yMm:   106.9, rotationDeg:  0.47 }
+   - { id: 1, xMm:   190.1, yMm:   108.5, rotationDeg: -0.40 }
+   - { id: 2, xMm:   187.8, yMm:  -107.8, rotationDeg: -0.27 }
+   - { id: 3, xMm:  -189.1, yMm:  -107.6, rotationDeg: -0.22 }
