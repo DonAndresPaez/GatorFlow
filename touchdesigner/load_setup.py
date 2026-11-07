@@ -24,6 +24,7 @@ calibration knob; cam1 never follows the tracking; only geo1 does.
 '''
 
 import json
+import sys
 from pathlib import Path
 
 # ---- names in the network: change these if the .toe uses different ones ----
@@ -46,6 +47,17 @@ def repo():
 
 def _read(relative):
     return json.loads((repo() / relative).read_text())
+
+
+def _mesh_file(stl):
+    # TouchDesigner's File In SOP reads OBJ but not STL, so it loads a copy
+    # converted next to the model (models/<name>/aero/<name>.obj, rewritten
+    # whenever the STL changes). Same corners, units and axes as the STL.
+    tools = str(repo() / 'tools')
+    if tools not in sys.path:
+        sys.path.insert(0, tools)
+    from aero.geometry import obj_for
+    return obj_for(stl, stl.parent / 'aero')
 
 
 def load():
@@ -83,20 +95,23 @@ def _load_model():
     if not file_in:
         print(f'load_setup: put a File In SOP inside {GEO} (see the top of load_setup.py)')
         return
-    file_in[0].par.file = stl.as_posix()
+    file_in[0].par.file = _mesh_file(stl).as_posix()
 
     mount = geo.op(MOUNT_SOP)
     if mount is None:
         print(f"load_setup: loaded {model['name']}, but there is no Transform SOP '{MOUNT_SOP}' "
               f'in {GEO}, so the mount offset was not applied')
         return
-    scale = TD_UNITS_PER_MM * (1.0 if model.get('stlUnits', 'mm') == 'mm' else 1000.0)
+    # "scale" (printed size / STL size) scales the placed model about the plate
+    # centre, so the offset grows with it (as aero.geometry.mount_transform).
+    printed = float(model.get('scale', 1.0))
+    scale = TD_UNITS_PER_MM * printed * (1.0 if model.get('stlUnits', 'mm') == 'mm' else 1000.0)
     offset = model.get('mountOffsetMm', [0, 0, 0])
-    mount.par.tx, mount.par.ty, mount.par.tz = (v * TD_UNITS_PER_MM for v in offset)
+    mount.par.tx, mount.par.ty, mount.par.tz = (v * printed * TD_UNITS_PER_MM for v in offset)
     mount.par.rx, mount.par.ry = 0, 0
     mount.par.rz = model.get('mountRotationDeg', 0)
     mount.par.scale = scale
-    print(f"load_setup: geo1 <- {model['name']} ({stl.name}), offset {offset} mm")
+    print(f"load_setup: geo1 <- {model['name']} ({stl.name}), offset {offset} mm, scale {printed:g}")
 
 
 def save_projector():

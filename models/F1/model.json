@@ -1,0 +1,11 @@
+{
+  "_help": "Describes this model. stl is relative to this folder. mountOffsetMm / mountRotationDeg say where the STL's origin sits in the PLATE frame (origin = centre of the plate top, X right, Y far edge, Z up), so they are zero when the model is centred on the plate and its STL origin is the centre of its base.",
+  "name": "F1",
+  "stl": "F1.stl",
+  "stlUnits": "mm",
+  "sizeMm": [102, 43, 27],
+  "scale": 1,
+  "mountOffsetMm": [-14.157, -10.817, 31.785],
+  "mountRotationDeg": 0,
+  "notes": "'F1 Car' by Digi-Kitsamus (https://www.thingiverse.com/thing:364951), licensed CC BY-SA; this simplified copy is shared under the same licence. The original (131,688 triangles: a body and four print-in-place wheels, plus an internal cavity) was reduced to 6000 triangles with python -m aero.decimate, which dropped the cavity and kept every shell closed. Car along X, nose toward -X; the mount offset centres it on the plate with the wheels on it."
+}

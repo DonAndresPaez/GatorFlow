@@ -15,6 +15,12 @@ KinectReader/out/
 *.sln
 *.vcxproj*
 
+# Panel-method and flow-field caches: rebuilt by themselves from the STL (aero/panel.py, aero/flowlines.py). surrogate.npz IS committed.
+models/*/aero/panel_*.npz
+models/*/aero/field_*.npz
+# OBJ copies of the STLs for TouchDesigner's File In SOP (load_setup.py writes them)
+models/*/aero/*.obj
+
 # Generated calibration: belongs to one camera in one mounting (see calibration/README.md)
 calibration/*/
 

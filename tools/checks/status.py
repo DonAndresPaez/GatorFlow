@@ -79,8 +79,10 @@ def main():
     print(f"\nMODEL    {rel(paths.MODEL_FILE)}")
     try:
         model = paths.active_model()
-        size = model.get("sizeMm")
-        print(f"  {model['name']}: {rel(model['stl'])}" + (f", {size[0]} x {size[1]} x {size[2]} mm" if size else ""))
+        size, scale = model.get("sizeMm"), float(model.get("scale", 1.0))
+        print(f"  {model['name']}: {rel(model['stl'])}" + (f", {size[0]} x {size[1]} x {size[2]} mm" if size else "")
+              + (f", printed at x{scale:g}" + (f" ({' x '.join(f'{v * scale:g}' for v in size)} mm)" if size else "")
+                 if scale != 1.0 else ""))
         print(f"  mounted at {model['mountOffsetMm']} mm, turned {model['mountRotationDeg']} deg on the plate")
         if not model["stl"].exists():
             todo.append(f"model STL missing: {rel(model['stl'])}")

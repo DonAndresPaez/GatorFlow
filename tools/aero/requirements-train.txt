@@ -1,0 +1,8 @@
+# Only for python -m aero.train (TouchDesigner itself needs nothing beyond NumPy).
+# For the NVIDIA GPU install the CUDA build, e.g.:
+#   pip install torch --index-url https://download.pytorch.org/whl/cu128
+numpy
+torch
+
+# Only for python -m aero.decimate (simplifying a detailed STL before adding it to models/).
+fast-simplification
