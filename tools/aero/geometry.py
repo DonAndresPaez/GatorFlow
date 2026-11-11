@@ -298,8 +298,8 @@ def panels_from_triangles(triangles_stl, mount=np.eye(4), ground=True, label="")
     # Corners merged into one (distinct indices) are degenerate too.
     keep &= (faces[:, 0] != faces[:, 1]) & (faces[:, 1] != faces[:, 2]) & (faces[:, 0] != faces[:, 2])
 
-    # Outward or inward? The divergence theorem gives the enclosed volume, which
-    # is negative when the file's triangles wind the other way. Measured before
+    # The divergence theorem gives the enclosed volume, which is negative when
+    # the file's triangles wind inward; then the faces are flipped. Measured before
     # the base is removed, while the surface is still closed.
     volume = np.sum(t[keep].mean(axis=1) * area_normal[keep]) / 3.0
     if volume < 0:

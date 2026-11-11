@@ -12,15 +12,15 @@ Cp = 1 - (V / V_inf)^2.
 The heavy part does not depend on the wind. The equations are linear in the
 wind, so once per model this builds, for every panel i, a 3x3 matrix M_i with
     V_i = M_i @ V_inf
-After that any wind direction and speed costs one small matrix product, which
-is why this pipeline also runs live. The matrices are cached in
+After that any wind direction and speed costs one small matrix product, so
+this pipeline also runs live. The matrices are cached in
 models/<name>/aero/, keyed by the geometry, so the build (a few seconds to a
 minute) only happens once per model.
 
 What potential flow cannot show: separation and the wake. The front and the
 suction over the top are right; the low pressure it predicts behind sharp
-edges and on the downwind side is too strong. Training the network on CFD
-results (train.py --data) is the way past that.
+edges and on the downwind side is too strong. To get those right, train the
+network on CFD results (train.py --data).
 
 Wings: sources alone cannot make lift. A model with trailing edges (sharp
 back edges of wings, found by lifting.trailing_edges) is solved by lifting.py
@@ -28,11 +28,10 @@ instead: doublets, the Kutta condition and a wake, still linear in the wind,
 so still one 3x3 matrix per panel. It keeps two solutions, with and without
 the wake, and lift_weight() blends between them by the wind's angle: the
 fixed wake is right while the wind comes from ahead, not from the side.
-It is opt-in: "kutta": true in the model's model.json. On clean wings it is
-validated (tests: lift slope within 4% of lifting-line theory, ground effect);
-on printed models whose wings end in rounded edges, or are decimated
-coarsely, it can come out wrong (see models/README.md), so it stays off
-unless a model asks for it.
+A model turns it on with "kutta": true in its model.json. The tests check it
+on clean wings (lift slope within 4% of lifting-line theory, ground effect).
+On printed models whose wings end in rounded edges or were decimated
+coarsely it can come out wrong (see models/README.md), so it is off by default.
 '''
 
 from pathlib import Path

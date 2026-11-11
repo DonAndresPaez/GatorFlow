@@ -3,7 +3,7 @@
 Imported by: aero/pipeline.py, touchdesigner/aero_td.py (through the pipeline), tests
 Run directly: no
 
-Two sets of lines, both on surfaces the projector actually lights:
+Two sets of lines, both on surfaces the projector lights:
   surface lines  follow the air across the model's own faces: seeds spread
                  evenly over the model, each traced up- and downstream by
                  walking from triangle to triangle along the surface velocity
@@ -17,7 +17,7 @@ a cheap product. Speeds are relative to the wind (1 = wind speed).
 
 Each line also carries a "flow time" (distance / local speed), so dashes
 moving along it at a steady rate in flow time speed up and slow down with
-the air, which is what makes it read as moving air.
+the air, and the eye reads them as moving air.
 
 Potential flow has no wake, so behind the model the lines close up again
 instead of swirling.

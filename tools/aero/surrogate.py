@@ -8,14 +8,15 @@ A small network maps the flow conditions to the pressure on every panel:
     [cos yaw, sin yaw, speed]  ->  MLP  ->  K mode weights  ->  Cp on N panels
 
 The K modes are the main patterns of the pressure field across the training
-set (PCA), so the network only predicts a few dozen numbers, not thousands.
+set (PCA), so the network predicts a few dozen numbers instead of one per panel.
 One evaluation is a few small matrix products: well under a millisecond, so it
 runs every frame inside TouchDesigner without PyTorch.
 
-Speed is an input, so it can change live. With the panel method as teacher,
-Cp does not depend on speed (potential flow just scales), so the network
-learns that it doesn't; trained on CFD results (train.py --data) it learns how
-the pattern really changes with speed. Pressure in Pa always scales with speed.
+Speed is an input, so it can change live. With the panel method as teacher
+the network learns that Cp does not depend on speed (in potential flow every
+velocity scales with the wind). Trained on CFD results (train.py --data) it
+learns how the pattern changes with speed. Pressure in Pa scales with speed
+squared either way.
 
 The file is models/<name>/aero/surrogate.npz. It remembers the geometry it was
 trained on, and the pipeline refuses it if the model's STL has changed since.

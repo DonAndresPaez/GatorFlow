@@ -8,7 +8,7 @@
                          lifting.py   the same with lift for wings (doublets, Kutta, wake): opt-in per model
                          surrogate.py pipeline 2: pretrained network, per-frame prediction
                          flowlines.py streamlines over the model and the plate (from the panel method)
-                         pipeline.py  ties it together: a colour per point, and flow-line ribbons
+                         pipeline.py  pose in, mesh out: a colour per point, and flow-line ribbons
 
 Only NumPy is needed at run time, because TouchDesigner's Python ships with it
 and nothing else this needs. Training the network (train.py) runs in a normal

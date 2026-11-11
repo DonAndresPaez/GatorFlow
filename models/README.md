@@ -27,11 +27,11 @@ models/
 6. In TouchDesigner: `op('load_setup').module.load()`.
 7. Aerodynamics: from `tools/`, `python -m aero.precompute` (optional, TD builds it too) and `python -m aero.train`, then commit `aero/surrogate.npz`. Until it is trained, the ML solver falls back to the panel method.
 
-For the aerodynamics the STL should be **closed** (watertight) and stand on Z = 0; faces lying flat on the plate are dropped and the plate mirrors the rest. Separate parts are fine (the F1 car is a body and four wheels): faces of two parts that face each other across less than 1 mm (print-in-place clearances) are dropped too, since no real air flows through a slit that narrow and potential flow would race through it.
+For the aerodynamics the STL should be closed (watertight) and stand on Z = 0; faces lying flat on the plate are dropped and the plate mirrors the rest. Separate parts are fine (the F1 car is a body and four wheels): faces of two parts that face each other across less than 1 mm (print-in-place clearances) are dropped too, since no real air flows through a slit that narrow and potential flow would race through it.
 
-**Wings:** `"kutta": true` in `model.json` turns on lift (aero/lifting.py) for the model's wings: trailing edges are found where a thin part's upward-facing top ends at the back (wheels are recognised and left out), a wake trails back from each, and the Kutta condition sets the circulation. Turn it on for models whose wings end in a sharp or flat (blunt) back edge and are meshed finely enough to show it, then check the result. It stays off for the F1: its wings end in rounded edges on a coarse mesh, where the trailing-edge condition comes out unreliable (the rear wing produced wildly wrong circulation and was rejected by the solver's guard; the rest made lift instead of downforce). Getting the F1's wings right needs cleaner wing geometry, a thin-wing (vortex lattice) treatment, or CFD results fed to the network.
+`"kutta": true` in `model.json` gives the model's wings lift (aero/lifting.py). The solver looks for trailing edges where a thin part's upward-facing top ends at the back, leaving wheels out, trails a wake back from each and sets the circulation with the Kutta condition. Turn it on for models whose wings end in a sharp or flat (blunt) back edge, meshed finely enough to show it, and check the result. The F1 keeps it off. Its wings end in rounded edges on a coarse mesh, and there the trailing-edge condition fails: the rear wing's circulation came out far beyond any real wing and the solver's guard dropped it, and the front wing made lift instead of downforce. Getting the F1's wings right needs cleaner wing geometry, a thin-wing (vortex lattice) treatment, or CFD results fed to the network.
 
-Keep it under about 8000 triangles: the panel build needs an N x N matrix (8000 → 0.5 GB, about a minute). Printable models are often far bigger, so simplify them first:
+Keep it under about 8000 triangles: the panel build needs an N x N matrix (0.5 GB and about a minute at 8000). Printable models are often far bigger, so simplify them first:
 
 ```
 cd tools
@@ -39,6 +39,6 @@ pip install fast-simplification
 python -m aero.decimate path/to/original.stl ../models/<NAME>/<NAME>.stl --triangles 6000
 ```
 
-It simplifies each part on its own (keeping every one closed), drops internal cavities, and reports each part's volume change; raise `--triangles` if a thin part changed a lot. Commit the simplified STL, and say in `model.json`'s notes where the original came from and under what licence.
+It simplifies each part separately so every part stays closed, and drops internal cavities. Check the volume change it reports per part, and raise `--triangles` if a thin part changed a lot. Commit the simplified STL, and say in `model.json`'s notes where the original came from and under what licence.
 
 The tracker doesn't care which model is on the plate. It tracks the plate, so no recalibration is needed. For the same reason, **keep the markers outside every model's footprint** (as the camera sees it), and mount models the same way every time (pegs or a socket on the plate) so the offset stays true.

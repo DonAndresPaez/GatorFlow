@@ -32,9 +32,9 @@ SETUP (once per .toe, which lives in this folder):
   3. Save the .toe.
 
 EVERYDAY USE (on geo1/aero/aero_pop):
-  Aero page: Solver (Panel method / ML surrogate), Wind speed, Display (Cp, Pa,
-    or Wing loading for models with lift on), colour ranges, Heatmap brightness (turn it down so the lines stand
-    out), Skin offset, Reload.
+  Aero page: Solver (Panel method / ML surrogate), Wind speed, Display (Cp,
+    Pa, or Wing loading for models with lift on), colour ranges, Heatmap
+    brightness (turn it down so the lines stand out), Skin offset, Reload.
   Flow lines page: Surface lines / Ground lines (on/off and how many), Line
     width (mm, 0 = automatic), Animate, Flow rate, Dash length, speed colours.
   Export a slider or CHOP to Wind speed to drive it live. Swapping models:

@@ -26,7 +26,7 @@ lifting solution into the plain one (the same equations without the wake) as
 the wind swings round to the side.
 
 The plate is the ground: sources, doublets and wakes all have mirror images
-below it, with the same strengths. That is what gives ground effect.
+below it, with the same strengths, and those images give the ground effect.
 
 Still potential flow: no stall, no separation, no viscous wake, and on a
 10 cm model the real air is more viscous than this assumes, so lift comes out
@@ -46,7 +46,7 @@ WAKE_CLEARANCE = 0.5                 # mm: a wake that would run into the model 
 # the model size (it is already a lift coefficient beyond 3 on a wing spanning
 # the model). A strip that comes out stronger is a numerical failure (a
 # rounded edge on a coarse mesh, two wakes almost on top of each other): it
-# is dropped and the rest solved again, so that part simply makes no lift.
+# is dropped and the rest solved again, so that part makes no lift.
 GAMMA_LIMIT = 0.5
 
 # Trailing edges are where a wing's top surface ends at the back. A wing's

@@ -17,8 +17,8 @@ Each evaluate():
   4. spreads it to the panels' corners.
 
 The skin is the model's wetted surface (the solver's own panels), a fraction
-of a millimetre off the model and coloured by pressure. Being built from the
-solver's panels, it needs nothing from TouchDesigner's copy of the mesh.
+of a millimetre off the model and coloured by pressure. It comes from the
+solver's panels, so it needs nothing from TouchDesigner's copy of the mesh.
 
 The panel solver's one-off build runs on a background thread, so
 TouchDesigner keeps drawing (grey, with a status line) until it is ready.
@@ -88,7 +88,7 @@ def line_mesh(ribbons, seconds=0.0, rate=0.0, dash=1.0, low=0.0, high=2.0):
 @dataclass
 class Result:
     model: str
-    solver: str                     # the solver that actually answered ("" if none yet)
+    solver: str                     # the solver that answered: "panel" when "ml" fell back ("" if none yet)
     yaw_deg: float
     speed: float                    # m/s along the plate
     cp_panels: np.ndarray = None    # (N,) or None while nothing is ready
