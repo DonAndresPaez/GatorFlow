@@ -148,7 +148,7 @@ class _Loaded:
         except Exception as error:      # a half-written or old file should not stop the show
             return None, f"could not read {path.name}: {error}"
         if surrogate.key != self.panels.key or len(surrogate) != len(self.panels):
-            return None, "network was trained on a different STL or mount: retrain (python -m aero.train)"
+            return None, "network was trained on a different STL, mount or scale: retrain (python -m aero.train)"
         if surrogate.source.startswith("panel v") and surrogate.source != f"panel v{panel.SOLVER_VERSION}":
             return None, f"network was taught by an older panel method ({surrogate.source}): retrain (python -m aero.train)"
         return surrogate, ""

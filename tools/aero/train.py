@@ -15,8 +15,11 @@ Needs: pip install -r aero/requirements-train.txt  (PyTorch; uses the NVIDIA GPU
 panel centre (the order --export-panels writes) for S runs. Yaw is the wind's
 angle on the plate from +X toward +Y, as in aero/flow.py.
 
-Retrain after changing the model's STL or mount: the pipeline refuses a
-network trained on different geometry.
+Retrain after changing the model's STL, mountOffsetMm, mountRotationDeg or
+scale, or after an update that raises panel.SOLVER_VERSION: the pipeline
+refuses a network trained on different geometry or an older solver, and
+falls back to the panel method. README.md, "Using the trained network",
+walks through the whole loop.
 '''
 
 import argparse

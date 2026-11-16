@@ -92,6 +92,28 @@ Sources alone give wings no lift. For models with wings, `aero/lifting.py` adds 
 
 Which model is on the plate still comes from `setup/model.json`, through `aero/catalog.py`'s `ModelSelector`, so an automatic selector (depth-image fit, a marker per model) can replace it without touching the solvers.
 
+### Using the trained network
+
+Each model's network is `models/<name>/aero/surrogate.npz`. F1, PMB-1A and Cube20 already have one committed, so for those start at step 3.
+
+1. Install PyTorch on the computer that trains (TouchDesigner never needs it). From the repo folder, in PowerShell:
+   ```
+   .\.venv\Scripts\python.exe -m pip install torch --index-url https://download.pytorch.org/whl/cu128
+   .\.venv\Scripts\python.exe -m pip install -r tools\aero\requirements-train.txt
+   ```
+   The first line installs the CUDA build for an NVIDIA GPU. Without one, skip it: the second line then installs the CPU build, and training is slower.
+2. Train from `tools/`: `..\.venv\Scripts\python.exe -m aero.train` trains the active model in `setup/model.json`, and `--model NAME` picks another. The panel method teaches it (built first if its cache is missing) over 4000 wind angles and speeds from 1 to 30 m/s; `--speed MIN MAX` changes the range. To teach it with CFD or wind-tunnel results instead, write the panel list with `--export-panels panels.csv` for whoever runs the CFD and train on their results with `--data cfd.npz` (format at the top of `aero/train.py`). Commit the new `surrogate.npz`, so other computers use it without training.
+3. Run it in TouchDesigner: open `touchdesigner/ProjectMappingSetUp.toe` (press Reload on `geo1/aero/aero_pop` if it was already open) and set Solver to ML surrogate on the Aero page. The status line in the `aero_status` DAT should read `<model> | ml | ...`. If it reads `panel`, the network was refused and the note after it says why. Wind speed is an input to the network, so a slider or CHOP exported to it changes the skin live; outside the trained range the status line warns. The flow lines always come from the panel method.
+4. Retrain when the geometry changes: a new STL, `mountOffsetMm`, `mountRotationDeg` or `scale`, or a code update that raises `panel.SOLVER_VERSION`. Until then TouchDesigner refuses the old network and shows the panel method. Wind speed, the pose and the display settings never need retraining. A network taught by the panel method gives the same Cp at any scale, but the check refuses it anyway, because one trained on CFD would be wrong at another size.
+5. To hand it to someone else, send it with everything it depends on, in the same folder layout, since the code finds the other folders relative to the `.toe`:
+   ```
+   tools/aero/                         the solver code
+   touchdesigner/ProjectMappingSetUp.toe, aero_td.py, aero_pop.py
+   models/<name>/                      the STL, model.json and aero/surrogate.npz
+   setup/model.json                    with "active" set to <name>
+   ```
+   Leave out `models/<name>/aero/panel_*.npz`, `field_*.npz` and `*.obj`; TouchDesigner rebuilds them. They need TouchDesigner 2025 or later and nothing else: its Python already has NumPy. The skin shows from the network as soon as the project opens; the flow lines appear after the panel method's one-off background build (about 40 s for the F1).
+
 ## Building KinectReader
 
 Needs the Kinect for Windows SDK 2.0 (sets `KINECTSDK20_DIR`), OpenCV with contrib (path set in `CMakeLists.txt`), and Visual Studio 2022.
